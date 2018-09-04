@@ -97,7 +97,6 @@ public final class ProgramLauncher
         //TODO: NFO.PAL | Installed Table to show installed.
         String local = System.getenv("LOCALAPPDATA");
         local = addon.getFile_launch().replace("LOCALAPPDATA",local);
-        System.out.println(local);
         Runtime runtime = Runtime.getRuntime();
         try
         {

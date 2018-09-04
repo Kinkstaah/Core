@@ -5,5 +5,5 @@ package Data;
  */
 public enum DaemonRequest
 {
-    SHOW_UI, HIDE_UI;
+    SHOW_UI, SHOW_SETTINGS;
 }

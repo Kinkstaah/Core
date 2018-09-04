@@ -2,13 +2,10 @@ package Backend;
 
 import Data.DaemonRequest;
 import GUI.Core;
-import GUI.DaemonRequests;
+import GUI.Settings;
+import javafx.stage.Stage;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.net.URL;
 
 /**
@@ -16,13 +13,16 @@ import java.net.URL;
  */
 public class SystemTrayHandler
 {
+    public static volatile boolean openSettings = false;
+    public static volatile boolean showUI = false;
+
     /**
      * Returns a boolean if succesful or not.
      */
     public static void createSystemTray()
     {
         if (!SystemTray.isSupported()) {
-            System.out.println("SystemTray is not supported");
+            //System.out.println("SystemTray is not supported");
             return;
         }
         final PopupMenu popup = new PopupMenu();
@@ -36,13 +36,10 @@ public class SystemTrayHandler
 
         // Create a pop-up menu components
         MenuItem showItem = new MenuItem("Show PAL");
-        showItem.addActionListener(e -> DaemonRequests.addRequest(DaemonRequest.SHOW_UI));
+        showItem.addActionListener(e -> showUI = true);
 
         MenuItem settingsItem = new MenuItem("Settings");
-        settingsItem.addActionListener(e ->
-        {
-            // Launch Settings
-        });
+        settingsItem.addActionListener(e -> openSettings = true);
         MenuItem exitItem = new MenuItem("Exit");
         exitItem.addActionListener(e -> System.exit(0));
 
@@ -59,7 +56,7 @@ public class SystemTrayHandler
         {
             tray.add(trayIcon);
         } catch (AWTException e) {
-            System.out.println("TrayIcon could not be added.");
+            //System.out.println("TrayIcon could not be added.");
         }
     }
 }

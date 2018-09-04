@@ -34,7 +34,7 @@ public final class FilterDownloader
         str = str.replace("%p", preset);
         str = str.replace(" ", "%20");
 
-        System.out.println(str);
+        //System.out.println(str);
 
         StringBuilder filter_filename = new StringBuilder();
         filter_filename.append(preset);
@@ -73,7 +73,7 @@ public final class FilterDownloader
             str = str.replace("%p", preset);
             str = str.replace(" ", "%20");
 
-            System.out.println(str);
+            //System.out.println(str);
 
             StringBuilder filter_filename = new StringBuilder();
             filter_filename.append(preset);

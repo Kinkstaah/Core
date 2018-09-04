@@ -370,7 +370,6 @@ public class Controller_Settings implements Initializable
         UserSettings.setPoePath(POE_STANDALONE.getText());
         UserSettings.setPoeSteam(POE_STEAM.getText());
         UserSettings.setPathAddons(ADDONS_FOLDER.getText());
-        System.out.println("TOKEN:"+github_api_token.getText());
         UserSettings.setGithub_API_Token(github_api_token.getText());
         UserSettings.setGithubApiTokenEnabled(enableAPItoken.isSelected());
         UserSettings.setGithubApiEnabled(github_api_checkbox.isSelected());

@@ -1,6 +1,7 @@
 package GUI;
 
 import API.Github.UpdateChecker;
+import Backend.SystemTrayHandler;
 import Data.InstalledAddons;
 import Data.UserSettings;
 import GUI.PopUp.PopupFactory;
@@ -90,6 +91,7 @@ public class Controller_Core implements Initializable
         daemonDownloadNotifier();
         daemonTabPaneWatcher();
         daemonTableViewSelections();
+        daemonSystemTrayHandler();
 
         // Create Repo objects.
         try
@@ -104,7 +106,7 @@ public class Controller_Core implements Initializable
         UserSettings.downloadAllRepos();
         InstalledAddons.getINSTANCE().scanForInstalledAddons();
 
-        System.out.println(Addons.getINSTANCe().getAddons().size() + " ADDONS");
+        //System.out.println(Addons.getINSTANCe().getAddons().size() + " ADDONS");
         UpdateChecker.startChecking();
         UserSettings.parseCustomAHK();
         // Create a table with the addons for the Browse
@@ -117,6 +119,40 @@ public class Controller_Core implements Initializable
             TODO: User Repo Adding
             TODO: User API Handling
          */
+    }
+
+    private void daemonSystemTrayHandler()
+    {
+        Runnable r = ()  ->
+        {
+            while (true)
+            {
+                try
+                {
+                    Thread.sleep(300L);
+                }
+                catch (InterruptedException e)
+                {
+                    e.printStackTrace();
+                }
+                boolean showSettings = SystemTrayHandler.openSettings;
+                boolean showUI = SystemTrayHandler.showUI;
+                if (showSettings)
+                {
+                    SystemTrayHandler.openSettings = false;
+                    Platform.runLater(() -> topbar_settings_onMouseClicked());
+                }
+
+                if (showUI)
+                {
+                    SystemTrayHandler.showUI = false;
+                    Platform.runLater(() -> Core.stage.setIconified(false));
+                }
+            }
+        };
+        Thread t_tray = new Thread(r);
+        t_tray.setDaemon(true);
+        t_tray.start();
     }
 
     private void handle_launch_request()
@@ -624,7 +660,7 @@ public class Controller_Core implements Initializable
         changeImage(topbar_image_minimizeWindow, "/icons/minimize.png");
     }
 
-    public void topbar_settings_onMouseClicked(MouseEvent mouseEvent)
+    public void topbar_settings_onMouseClicked()
     {
         Settings settings = new Settings();
         try

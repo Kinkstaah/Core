@@ -49,8 +49,8 @@ public class API_Caller
     {
         GitHub github = connect();
         Date d = new Date(github.getRateLimit().reset.getTime() * 1000);
-        System.out.println("Remaining requests: " + github.getRateLimit().remaining);
-        System.out.println("Resets at: " + d);
+        //System.out.println("Remaining requests: " + github.getRateLimit().remaining);
+        //System.out.println("Resets at: " + d);
         return github.getRateLimit();
     }
 

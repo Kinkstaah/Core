@@ -53,7 +53,7 @@ public class FilterBlast
                 FilterBlastFilter f = new FilterBlastFilter(n.get("Name").toString(), n.get("Version").toString(), n.get("LastUpdate").toString(), n.get("PoEVersion").toString(), n.get("ForumThread").toString(), variations);
                 if (!f.getName().equals("PoE Default Filter"))
                 {
-                    System.out.println(f.toString());
+                    //System.out.println(f.toString());
                     list.add(f);
                 }
             }

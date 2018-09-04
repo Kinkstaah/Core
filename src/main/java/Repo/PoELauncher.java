@@ -1,7 +1,6 @@
 package Repo;
 
 import Data.UserSettings;
-import GUI.PopUp.PopUp;
 import GUI.PopUp.PopupFactory;
 import IO.CustomAHK;
 import IO.ProgramLauncher;

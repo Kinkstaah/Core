@@ -102,7 +102,6 @@ public class InstallHandler
 
         String[] url_parts = addon.getDownload_url().split("/");
         String file_name = url_parts[url_parts.length-1];
-        System.out.println(file_name);
         // Create a temp_download_folder
         File f = new File(UserSettings.getPathAddons() + "/temp");
         if (!f.exists())
@@ -120,7 +119,6 @@ public class InstallHandler
         Files.copy(inputStream, Paths.get(f.getPath() + File.separator + file_name));
 
         String[] file_path_parts = file_name.split("\\.");
-        System.out.println(file_path_parts.length);
         String ext = file_path_parts[file_path_parts.length-1];
 
         if (addon.getName().equals("CurrencyCop"))

@@ -4,7 +4,6 @@ import Repo.AddonJson;
 import Repo.Addons;
 
 import java.io.*;
-import java.util.ArrayList;
 import java.util.Properties;
 
 /**

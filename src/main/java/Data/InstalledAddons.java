@@ -98,8 +98,8 @@ public final class InstalledAddons
                 InstalledFilter[] array = objectMapper.readValue(f, InstalledFilter[].class);
                 for (InstalledFilter i : array)
                 {
-                    System.out.println(i.getVersion());
-                    System.out.println(i.getKey());
+                    //System.out.println(i.getVersion());
+                    //System.out.println(i.getKey());
                     InstalledTableRow installedtableRow = FilterTable.getINSTANCE().getFilterByPresetName(i.getKey()).convertToInstallTableRow();
                     installedtableRow.setName(i.getKey());
                     installedtableRow.setVersion(i.getVersion());
