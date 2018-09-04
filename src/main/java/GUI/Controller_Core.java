@@ -109,13 +109,22 @@ public class Controller_Core implements Initializable
         UserSettings.parseCustomAHK();
         // Create a table with the addons for the Browse
         //setAddonTableData();
-
+        //Handle Specials Settings
+        handle_launch_request();
         /*
             Longer Term non v1.0
             TODO: In game overlay for browser related addons.
             TODO: User Repo Adding
             TODO: User API Handling
          */
+    }
+
+    private void handle_launch_request()
+    {
+        if (UserSettings.isLaunchPoeOnPalLaunch())
+        {
+            launchPoE();
+        }
     }
 
     private void filter_download_onMouseClicked()

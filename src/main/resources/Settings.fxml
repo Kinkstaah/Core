@@ -80,7 +80,7 @@
                   </Text>
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="settings_a_api" prefHeight="400.0" prefWidth="400.0">
+            <AnchorPane fx:id="settings_a_api" prefHeight="400.0" prefWidth="400.0" visible="false">
                <children>
                   <Text fill="#2b91af" layoutX="12.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="API Settings">
                      <font>
@@ -149,7 +149,7 @@
                      </font>
                   </Text>
                </children></AnchorPane>
-            <AnchorPane fx:id="settings_a_launchoptions" prefHeight="400.0" prefWidth="400.0" visible="false">
+            <AnchorPane fx:id="settings_a_launchoptions" prefHeight="400.0" prefWidth="400.0">
                <children>
                   <Text fill="#2b91af" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Launch Options">
                      <font>
@@ -168,8 +168,8 @@
                   <Button fx:id="bLaunchSelectedItem" layoutX="178.0" layoutY="148.0" mnemonicParsing="false" onAction="#addToLaunchList" prefHeight="25.0" prefWidth="30.0" text="&gt;" />
                   <Button fx:id="bDontLaunchSelectedItem" layoutX="178.0" layoutY="218.0" mnemonicParsing="false" onAction="#removeFromLaunchList" prefHeight="25.0" prefWidth="30.0" text="&lt;" />
                   <CheckBox fx:id="checkbox_launch_poe_when_pal_launches" layoutX="2.0" layoutY="328.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="382.0" text="Launch PoE when PAL has launched" />
-                  <CheckBox fx:id="checkbox_download_updates_upon_launch" layoutX="2.0" layoutY="311.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="382.0" text="Download all available updates upon launching PAL" />
-                  <CheckBox fx:id="checkbox_wait_for_updates_to_download" layoutX="2.0" layoutY="345.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="382.0" text="Wait for updates to have downloaded before launching PoE" />
+                  <CheckBox fx:id="checkbox_download_updates_upon_launch" layoutX="2.0" layoutY="311.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="382.0" text="Download all available updates upon launching PAL" visible="false" />
+                  <CheckBox fx:id="checkbox_wait_for_updates_to_download" layoutX="2.0" layoutY="345.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="382.0" text="Wait for updates to have downloaded before launching PoE" visible="false" />
                   <ComboBox fx:id="combobox_PoE_Version" layoutX="108.0" layoutY="367.0" prefHeight="25.0" prefWidth="194.0" />
                   <Text fill="WHITE" layoutX="4.0" layoutY="376.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Path of Exile Version to Launch:" textAlignment="CENTER" wrappingWidth="98.99999982491136" />
                </children></AnchorPane>

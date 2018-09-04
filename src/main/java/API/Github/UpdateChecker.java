@@ -67,7 +67,8 @@ public class UpdateChecker
                             {
                                 AddonJson addon_info = Addons.getINSTANCe().getAddonByName(s);
                                 InstalledTableRow i = InstalledAddons.getINSTANCE().getByName(s);
-                                assert i != null;
+                                if (i == null)
+                                    break;
                                 i.setStatus("New Update");
                                 assert addon_info != null;
                                 i.setLatest_version(addon_info.getVersion());

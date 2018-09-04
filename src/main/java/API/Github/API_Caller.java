@@ -25,7 +25,6 @@ public class API_Caller
 
         if (NewestVersion.isNewer(addon.getVersion(), version))
         {
-            System.out.println("NEW VERSION " + version);
             addon.setVersion(version);
             addon.setSource("Github API");
             addon.setDownload_url(latest.getAssets().get(0).getBrowserDownloadUrl());
@@ -36,7 +35,6 @@ public class API_Caller
 
     public static GitHub connect() throws IOException
     {
-        GitHub gitHub;
         if (UserSettings.isGithubApiTokenEnabled())
         {
             return GitHub.connectUsingOAuth(UserSettings.getGithub_API_Token());
