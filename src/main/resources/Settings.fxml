@@ -117,7 +117,7 @@
                      </font>
                   </Text>
                   <CheckBox fx:id="enableAPItoken" layoutX="14.0" layoutY="225.0" mnemonicParsing="false" />
-                  <Button fx:id="bGetGitHubAPIToken" layoutX="215.0" layoutY="221.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="How do I get a token?" />
+                  <Button fx:id="bGetGitHubAPIToken" layoutX="215.0" layoutY="221.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="How do I get a token?" visible="false" />
                </children>
             </AnchorPane>
             <AnchorPane fx:id="settings_a_paths" prefHeight="400.0" prefWidth="400.0" visible="false">
@@ -149,7 +149,7 @@
                      </font>
                   </Text>
                </children></AnchorPane>
-            <AnchorPane fx:id="settings_a_launchoptions" prefHeight="400.0" prefWidth="400.0">
+            <AnchorPane fx:id="settings_a_launchoptions" prefHeight="400.0" prefWidth="400.0" visible="false">
                <children>
                   <Text fill="#2b91af" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Launch Options">
                      <font>
@@ -192,7 +192,7 @@
                      </font>
                   </Text>
                   <Button fx:id="bBrowseAHK" layoutX="334.0" layoutY="116.0" mnemonicParsing="false" onAction="#browseForAHK" text="Browse" />
-                  <Hyperlink fx:id="hyperlink_AHK_WEBSITE" layoutX="29.0" layoutY="77.0" onMouseClicked="#downloadAHK" text="Don't have AutoHotkey installed? Click &gt;here&lt; to install it">
+                  <Hyperlink fx:id="hyperlink_AHK_WEBSITE" layoutX="29.0" layoutY="77.0" onMouseClicked="#downloadAHK" style="-fx-text-fill: white;" text="Don't have AutoHotkey installed? Click &gt;here&lt; to install it">
                      <font>
                         <Font name="System Bold Italic" size="12.0" />
                      </font>
@@ -228,25 +228,25 @@
                         <Image url="@settings/Twitch_icon.png" />
                      </image>
                   </ImageView>
-                  <Hyperlink layoutX="48.0" layoutY="87.0" text="https://www.twitch.tv/Rizlim" />
+                  <Hyperlink layoutX="48.0" layoutY="87.0" onMouseClicked="#visit" style="-fx-text-fill: white;" text="https://www.twitch.tv/Rizlim" />
                   <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="6.0" layoutY="120.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@settings/YouTube-icon.png" />
                      </image>
                   </ImageView>
-                  <Hyperlink layoutX="48.0" layoutY="124.0" text="https://www.youtube.com/c/Pastillage" />
+                  <Hyperlink layoutX="48.0" layoutY="124.0" onMouseClicked="#visit" style="-fx-text-fill: white;" text="https://www.youtube.com/c/Pastillage" />
                   <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="5.0" layoutY="156.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@settings/twitter.png" />
                      </image>
                   </ImageView>
-                  <Hyperlink layoutX="47.0" layoutY="160.0" text="https://twitter.com/RizlimWasTaken" />
+                  <Hyperlink layoutX="47.0" layoutY="160.0" onMouseClicked="#visit" style="-fx-text-fill: white;" text="https://twitter.com/RizlimWasTaken" />
                   <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="5.0" layoutY="196.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@settings/reddit.png" />
                      </image>
                   </ImageView>
-                  <Hyperlink layoutX="47.0" layoutY="200.0" text="https://www.reddit.com/user/rizlim" />
+                  <Hyperlink layoutX="47.0" layoutY="200.0" onMouseClicked="#visit" style="-fx-text-fill: white;" text="https://www.reddit.com/user/rizlim" />
                   <Text fill="#2b91af" layoutX="10.0" layoutY="245.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Or try this subreddit:" wrappingWidth="382.21484375">
                      <font>
                         <Font name="System Bold" size="12.0" />
@@ -257,7 +257,7 @@
                         <Image url="@settings/reddit.png" />
                      </image>
                   </ImageView>
-                  <Hyperlink layoutX="51.0" layoutY="252.0" text="https://www.reddit.com/r/PoEAddonLauncher" />
+                  <Hyperlink layoutX="51.0" layoutY="252.0" onMouseClicked="#visit" style="-fx-text-fill: white;" text="https://www.reddit.com/r/PoEAddonLauncher" />
                </children>
             </AnchorPane>
          </children>

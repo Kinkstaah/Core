@@ -17,16 +17,20 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -596,5 +600,38 @@ public class Controller_Settings implements Initializable
                 e.printStackTrace();
             }
         }
+    }
+
+    /**
+     * Opens the browser with the specified url.
+     * @param url url to visit.
+     */
+    private void openBrowser(String url)
+    {
+        if (Desktop.isDesktopSupported())
+        {
+            try
+            {
+                Desktop.getDesktop().browse(new URI(url));
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();
+            }
+            catch (URISyntaxException e)
+            {
+                e.printStackTrace();
+            }
+        }
+        else
+        {
+            // Copy link to clipboard?
+        }
+    }
+
+    public void visit(MouseEvent mouseEvent)
+    {
+        Hyperlink link = (Hyperlink) mouseEvent.getSource();
+        openBrowser(link.getText());
     }
 }
