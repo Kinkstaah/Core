@@ -28,7 +28,7 @@ public class UserSettings
 
     private static boolean FILTERBLAST_API_ENABLED = true;
     private static boolean GITHUB_API_ENABLED = true;
-    private static boolean GITHUB_API_TOKEN_ENABLED = true;
+    private static boolean GITHUB_API_TOKEN_ENABLED = false;
     private static String Github_API_Token = "";
 
     private static boolean DOWNLOAD_ALL_UPDATES_ON_PAL_LAUNCH = false;

@@ -110,14 +110,25 @@
                   <Text fill="#2b91af" layoutX="135.0" layoutY="116.0" strokeType="OUTSIDE" strokeWidth="0.0" text="The GitHub API is used for getting updates to most addons that are hosted on GitHub." wrappingWidth="256.0000089406967" />
                   <Text fill="#2b91af" layoutX="135.0" layoutY="73.0" strokeType="OUTSIDE" strokeWidth="0.0" text="The FilterBlast API is used for getting updates to all filters listed under this API." wrappingWidth="256.0000089406967" />
                   <Text fill="#2b91af" layoutX="12.0" layoutY="162.0" strokeType="OUTSIDE" strokeWidth="0.0" text="GitHub limits API requests to 10 per minute for users without an API token, if you would like more calls to the GitHub API (50/Minute), please provide this application with an API Token." wrappingWidth="374.9999910593033" />
-                  <TextField fx:id="github_api_token" layoutX="44.0" layoutY="221.0" />
-                  <Text fill="#2b91af" layoutX="44.0" layoutY="218.0" strokeType="OUTSIDE" strokeWidth="0.0" text="GitHub API Token:" wrappingWidth="148.99999648332596">
+                  <TextField fx:id="github_api_token" layoutX="44.0" layoutY="221.0" prefHeight="25.0" prefWidth="338.0" />
+                  <Text fill="#2b91af" layoutX="45.0" layoutY="218.0" strokeType="OUTSIDE" strokeWidth="0.0" text="GitHub API Token:" wrappingWidth="148.99999648332596">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Text>
                   <CheckBox fx:id="enableAPItoken" layoutX="14.0" layoutY="225.0" mnemonicParsing="false" />
                   <Button fx:id="bGetGitHubAPIToken" layoutX="215.0" layoutY="221.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="How do I get a token?" visible="false" />
+                  <Text fill="#2b91af" layoutX="12.0" layoutY="308.0" strokeType="OUTSIDE" strokeWidth="0.0" text="How do I get a Github API Token? Go to this URL:" wrappingWidth="375.0000089406967">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Text>
+                  <Text fill="#2b91af" layoutX="12.0" layoutY="342.0" strokeType="OUTSIDE" strokeWidth="0.0" text="And click &quot;Generate new token&quot; Then paste the token in the box above" wrappingWidth="375.0000089406967">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Text>
+                  <Hyperlink fx:id="github_token_url" layoutX="9.0" layoutY="309.0" onMouseClicked="#visit" prefHeight="23.0" prefWidth="382.0" style="-fx-text-fill: white;" text="https://github.com/settings/tokens" />
                </children>
             </AnchorPane>
             <AnchorPane fx:id="settings_a_paths" prefHeight="400.0" prefWidth="400.0" visible="false">

@@ -168,6 +168,7 @@ public class Controller_Settings implements Initializable
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
+        IniHandler.readProperties();
         Platform.runLater(() -> syncUserSettings());
         Platform.runLater(() -> populateListView());
         settingsSelectorDaemon();
@@ -321,7 +322,9 @@ public class Controller_Settings implements Initializable
         }
 
         // Parse JSON, remove from list if they are in the json.
-        File f = new File("l_addons.pal");
+        PALdirCheck();
+        String local = System.getenv("LOCALAPPDATA");
+        File f = new File(local + File.separator + "PAL" + File.separator + "l_addons.pal");
 
         if (f.exists())
         {
@@ -391,7 +394,9 @@ public class Controller_Settings implements Initializable
 
     private void saveAddonLaunch()
     {
-            File f = new File("l_addons.pal");
+            PALdirCheck();
+            String local = System.getenv("LOCALAPPDATA");
+            File f = new File(local + File.separator + "PAL" + File.separator + "l_addons.pal");
             if (f.exists())
             {
                 f.delete();
@@ -549,9 +554,21 @@ public class Controller_Settings implements Initializable
         }
     }
 
+    private void PALdirCheck()
+    {
+        String str = System.getenv("LOCALAPPDATA");
+        File pal_local = new File(str + File.separator + "PAL");
+        if (! pal_local.exists())
+        {
+            pal_local.mkdir();
+        }
+    }
+
     private void saveCustomAHK()
     {
-        File f = new File(UserSettings.getPathInstalldir() + File.separator + "c_ahk.pal");
+        PALdirCheck();
+        String local = System.getenv("LOCALAPPDATA");
+        File f = new File(local + File.separator + "PAL" + File.separator + "c_ahk.pal");
         if (f.exists())
         {
             f.delete();
@@ -581,7 +598,9 @@ public class Controller_Settings implements Initializable
     private void parseCustomAHK()
     {
         // Parse JSON, remove from list if they are in the json.
-        File f = new File(UserSettings.getPathInstalldir() + File.separator + "c_ahk.pal");
+        PALdirCheck();
+        String local = System.getenv("LOCALAPPDATA");
+        File f = new File(local + File.separator + "PAL" + File.separator + "c_ahk.pal");
 
         if (f.exists())
         {

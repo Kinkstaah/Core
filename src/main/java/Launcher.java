@@ -2,7 +2,6 @@ import Backend.SystemTrayHandler;
 import Data.IniHandler;
 import GUI.Core;
 
-
 /**
  *
  */

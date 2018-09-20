@@ -71,8 +71,8 @@ public class PoELauncher
     private static void pre_launch_addons()
     {
         // Get list of addons to launch from JSON.
-        File f = new File(UserSettings.getPathInstalldir() + File.separator + "l_addons.pal");
-
+        String local = System.getenv("LOCALAPPDATA");
+        File f = new File(local + File.separator + "PAL" + File.separator + "l_addons.pal");
         if (f.exists())
         {
             ObjectMapper objectMapper = new ObjectMapper();
