@@ -1,6 +1,5 @@
 package Backend;
 
-import Data.DaemonRequest;
 import GUI.Core;
 import GUI.Settings;
 import javafx.stage.Stage;

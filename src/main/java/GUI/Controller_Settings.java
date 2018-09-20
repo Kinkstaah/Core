@@ -317,7 +317,7 @@ public class Controller_Settings implements Initializable
         }
 
         // Parse JSON, remove from list if they are in the json.
-        File f = new File(UserSettings.getPathInstalldir() + File.separator + "l_addons.pal");
+        File f = new File("l_addons.pal");
 
         if (f.exists())
         {
@@ -387,7 +387,7 @@ public class Controller_Settings implements Initializable
 
     private void saveAddonLaunch()
     {
-            File f = new File(UserSettings.getPathInstalldir() + File.separator + "l_addons.pal");
+            File f = new File("l_addons.pal");
             if (f.exists())
             {
                 f.delete();
@@ -468,6 +468,12 @@ public class Controller_Settings implements Initializable
     public void downloadAHK() throws IOException
     {
         InputStream inputStream = URI.create("https://github.com/Lexikos/AutoHotkey_L/releases/download/v1.1.30.00/AutoHotkey_1.1.30.00_setup.exe").toURL().openStream();
+
+        File temp_dir = new File(UserSettings.getPathAddons() + File.separator + "temp");
+
+        if (!temp_dir.exists())
+            temp_dir.mkdir();
+
         String location = UserSettings.getPathAddons() + File.separator + "temp" + File.separator + "AutoHotkey_1.1.30.00_setup.exe";
 
         File installer = new File(location);
