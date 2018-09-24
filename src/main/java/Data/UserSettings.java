@@ -126,6 +126,7 @@ public class UserSettings
     {
         Repository repository = new Repository("Official PAL Repo",
                 new URL("https://raw.githubusercontent.com/POE-Addon-Launcher/Curated-Repo/master/addons.json"),
+                //new URL("https://raw.githubusercontent.com/POE-Addon-Launcher/Curated-Repo/24-sept-2/addons.json"),
                 new URL("https://raw.githubusercontent.com/POE-Addon-Launcher/Curated-Repo/master/filters.json"));
         repositories.add(repository);
 

@@ -32,24 +32,6 @@ public class PoELauncher
 
         pre_launch_addons();
         launch_poe(PALdata.settings.getPref_version());
-        // Get PoE version prefered.
-        // TODO: Update
-        /*
-        switch (UserSettings.getPoeVersionToLaunch())
-        {
-            case "Steam":
-                launch_steam_poe();
-                break;
-            case "Stand Alone":
-                //launch_poe(UserSettings.getPoePath() + File.separator + "Client.exe");
-                break;
-            case "Beta":
-                //launch_poe(UserSettings.getPoeBeta() + File.separator + "Client.exe");
-                break;
-            default:
-                // Show Popup of no PoE Version set.
-                break;
-        }*/
         cleanUp();
     }
 

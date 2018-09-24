@@ -28,7 +28,6 @@ public final class ProgramLauncher
             return;
         }
 
-        System.out.println(addon_name);
         if (addon_name.equals("POE TradeMacro"))
         {
             tradeMacro();
