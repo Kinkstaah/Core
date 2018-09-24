@@ -24,7 +24,7 @@ public class PoELauncher
 {
     public static void run() throws IOException, URISyntaxException
     {
-        if (UserSettings.getPoeVersionToLaunch().equals(""))
+        if (PALdata.settings.getPref_version().equals(""))
         {
             PopupFactory.showError(1);
             return;

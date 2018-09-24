@@ -1,6 +1,7 @@
 package IO;
 
 import Data.InstalledAddons;
+import Data.PALdata;
 import Data.UserSettings;
 import GUI.Tables.InstalledTable;
 import Repo.AddonJson;
@@ -62,7 +63,7 @@ public final class ProgramLauncher
         }
         else if (filename[1].equals("ahk"))
         {
-            File autohotkeyEXE = new File(UserSettings.getAhkPath() + File.separator + "autohotkey.exe");
+            File autohotkeyEXE = new File(PALdata.settings.getAHK_Folder() + File.separator + "autohotkey.exe");
             if (autohotkeyEXE.exists())
             {
                 String ahk_path = autohotkeyEXE.getPath();

@@ -1,3 +1,4 @@
+import API.Github.API_Caller;
 import Backend.SystemTrayHandler;
 import Data.IniHandler;
 import Data.PALdata;
@@ -6,8 +7,10 @@ import Data.UserSettings;
 import GUI.Core;
 import GUI.OOD.updatepls;
 import GUI.PopUp.ImportPopup;
+import org.kohsuke.github.GitHub;
 
 import java.io.File;
+import java.io.IOException;
 
 /**
  *
@@ -34,6 +37,10 @@ public class Launcher
         }
 
         PALreader.readLauncherData();
+
+        /**
+         * Check for updates to Launcher.
+         */
 
         File core_settings = new File(PALdata.LOCAL_PAL_FOLDER + File.separator + "core_settings.pal");
         if (!core_settings.exists())

@@ -7,6 +7,7 @@ public class Launcher_Data
 {
     private String install_dir;
     private String launcher_location;
+    private String version;
 
     private Launcher_Data()
     {}
@@ -35,5 +36,15 @@ public class Launcher_Data
     public void setLauncher_location(String launcher_location)
     {
         this.launcher_location = launcher_location;
+    }
+
+    public String getVersion()
+    {
+        return version;
+    }
+
+    public void setVersion(String version)
+    {
+        this.version = version;
     }
 }
