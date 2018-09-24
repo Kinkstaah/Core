@@ -5,6 +5,7 @@ import Backend.SystemTrayHandler;
 import Data.InstalledAddons;
 import Data.UserSettings;
 import GUI.PopUp.PopupFactory;
+import GUI.PopUp.UpdatedPopup;
 import GUI.Tables.*;
 import IO.*;
 import Repo.Addons;
@@ -39,6 +40,16 @@ public class Controller_Core implements Initializable
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
+        UpdatedPopup updatedPopup = new UpdatedPopup();
+        try
+        {
+            updatedPopup.start(new Stage());
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
         installed_tableView.setOnMouseClicked( event ->
         {
             if (event.getClickCount() == 2)
@@ -119,6 +130,7 @@ public class Controller_Core implements Initializable
             TODO: User Repo Adding
             TODO: User API Handling
          */
+
     }
 
     private void daemonSystemTrayHandler()

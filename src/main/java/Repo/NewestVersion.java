@@ -14,7 +14,7 @@ public class NewestVersion
     public static boolean isNewer(String current, String potential_new)
     {
         /**
-         * This is on an assumption that the local version can
+         * This is on an assumption that the LOCAL_PAL_FOLDER version can
          * never be the newest version, which, theoretically it can't.
          */
         return !current.equals(potential_new);

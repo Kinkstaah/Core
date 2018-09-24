@@ -11,6 +11,7 @@ import java.util.Properties;
  */
 public class IniHandler
 {
+    @Deprecated
     public static void writeProperties()
     {
         Properties pal_settings = new Properties();
@@ -21,9 +22,9 @@ public class IniHandler
             out = new FileOutputStream(".settings");
             pal_settings.setProperty("addon_folder", UserSettings.getPathAddons());
             pal_settings.setProperty("version_folder", UserSettings.getPathInstalldir());
-            pal_settings.setProperty("steam", UserSettings.getPoeSteam());
-            pal_settings.setProperty("standalone", UserSettings.getPoePath());
-            pal_settings.setProperty("beta", UserSettings.getPoeBeta());
+            //pal_settings.setProperty("steam", UserSettings.getPoeSteam());
+            //pal_settings.setProperty("standalone", UserSettings.getPoePath());
+            //pal_settings.setProperty("beta", UserSettings.getPoeBeta());
             pal_settings.setProperty("loot_filter", UserSettings.getLootFilter());
             pal_settings.setProperty("filterblast_api_enabled", UserSettings.isFilterblastApiEnabled() + "");
             pal_settings.setProperty("github_api_enabled", UserSettings.isGithubApiEnabled() + "");
@@ -60,6 +61,7 @@ public class IniHandler
         }
     }
 
+    @Deprecated
     public static void readProperties()
     {
         if (!checkProperties())
@@ -75,9 +77,9 @@ public class IniHandler
             pal_settings.load(in);
             UserSettings.setPathAddons(pal_settings.getProperty("addon_folder"));
             UserSettings.setPathInstalldir(pal_settings.getProperty("version_folder"));
-            UserSettings.setPoeSteam(pal_settings.getProperty("steam"));
-            UserSettings.setPoePath(pal_settings.getProperty("standalone"));
-            UserSettings.setPoeBeta(pal_settings.getProperty("beta"));
+            //UserSettings.setPoeSteam(pal_settings.getProperty("steam"));
+            //UserSettings.setPoePath(pal_settings.getProperty("standalone"));
+            //UserSettings.setPoeBeta(pal_settings.getProperty("beta"));
             UserSettings.setLootFilter(pal_settings.getProperty("loot_filter"));
             UserSettings.setAhkPath(pal_settings.getProperty("AHK"));
             UserSettings.setGithub_API_Token(pal_settings.getProperty("github_token"));
@@ -160,6 +162,7 @@ public class IniHandler
         return null;
     }
 
+    @Deprecated
     public static boolean checkProperties()
     {
         File f = new File(".settings");

@@ -1,4 +1,4 @@
-package GUI.PopUp;
+package GUI.OOD;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -11,29 +11,22 @@ import javafx.stage.StageStyle;
 /**
  *
  */
-public class PopUp extends Application
+public class updatepls extends Application
 {
-    public static Stage stage;
-    public static String top_text;
-    public static String bold_text;
-    public static String small_text;
-
     public void start(Stage primaryStage) throws Exception
     {
         primaryStage = new Stage();
         FXMLLoader fxmlLoader = new FXMLLoader();
-        primaryStage.initStyle(StageStyle.UNDECORATED);
-        primaryStage.setAlwaysOnTop(true);
-        Parent root = fxmlLoader.load(getClass().getResource("/popup.fxml"));
-        primaryStage.setTitle("PAL: Message");
+        Parent root = fxmlLoader.load(getClass().getResource("/updatepls.fxml"));
+        primaryStage.setTitle("PAL: New Launcher Required!");
         primaryStage.getIcons().add(new Image(getClass().getResource("/witch.png").toString()));
-        Scene scene = new Scene(root, 350, 150);
+        Scene scene = new Scene(root, 265, 149);
+        scene.getStylesheets().add("text.css");
         primaryStage.setScene(scene);
-        stage = primaryStage;
         primaryStage.show();
     }
 
-    public void activate(String[] args)
+    public void launch_ui(String[] args)
     {
         launch(args);
     }

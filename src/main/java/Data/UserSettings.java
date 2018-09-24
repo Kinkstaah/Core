@@ -12,19 +12,33 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
+import static Data.PALdata.launcher_data;
+import static Data.PALdata.settings;
+
 /**
  *
  */
 public class UserSettings
 {
+    public UserSettings()
+    {}
+
+    public static volatile boolean update_request = false;
+    public static ObservableList<CustomAHK> customAHKS = FXCollections.observableArrayList();
+    private static ArrayList<Repository> repositories = new ArrayList<>();
+    public static final String LOCAL_PAL_FOLDER = System.getenv("LOCALAPPDATA") + File.separator + "PAL";
+
+    /***********
+     * v1 Data *
+     ***********
+     */
+    /*
     private static String PATH_ADDONS = "";
     private static String PATH_INSTALLDIR = "";
     private static String POE_STEAM = "";
     private static String POE_PATH = "";
     private static String POE_BETA = "";
     private static String LOOT_FILTER = "";
-
-    private static ArrayList<Repository> repositories = new ArrayList<>();
 
     private static boolean FILTERBLAST_API_ENABLED = true;
     private static boolean GITHUB_API_ENABLED = true;
@@ -37,14 +51,58 @@ public class UserSettings
     private static String POE_VERSION_TO_LAUNCH = "Steam";
 
     private static String AHK_PATH = "";
+    */
+    public static void sync()
+    {
+        LOOT_FILTER = PALdata.settings.getLoot_filter_dir();
+        FILTERBLAST_API_ENABLED = PALdata.settings.isFilterblast_api();
+        Boolean GITHUB_API_ENABLED = PALdata.settings.isGithub_api_enabled();
+        Boolean GITHUB_API_TOKEN_ENABLED = PALdata.settings.isGithub_api_token_enabled();
+        String Github_API_Token = PALdata.settings.getGithub_token();
+        boolean DOWNLOAD_ALL_UPDATES_ON_PAL_LAUNCH = PALdata.settings.isDown_on_launch();
+        boolean LAUNCH_POE_ON_PAL_LAUNCH = PALdata.settings.isRun_poe_on_launch();
+        boolean WAIT_FOR_UPDATES_AND_LAUNCH = PALdata.settings.isWait_for_updates();
+        String POE_VERSION_TO_LAUNCH = PALdata.settings.getPref_version();
+        String AHK_PATH = PALdata.settings.getAHK_Folder();
+    }
 
-    public static volatile boolean update_request = false;
-    public static ObservableList<CustomAHK> customAHKS = FXCollections.observableArrayList();
+    /***********
+     * v2 Data *
+     ***********
+     */
+
+    private static String PATH_ADDONS = launcher_data.getInstall_dir() + File.separator + "Addons";
+    private static String PATH_INSTALLDIR = launcher_data.getInstall_dir() + File.separator + "Core";
+    private static String LOOT_FILTER = "";
+
+    /*******
+     * API *
+     *******
+     */
+    private static Boolean FILTERBLAST_API_ENABLED = true;
+    private static Boolean GITHUB_API_ENABLED = true;
+    private static Boolean GITHUB_API_TOKEN_ENABLED = false;
+    private static String Github_API_Token = "";
+
+    /**********
+     * LAUNCH *
+     **********
+     */
+    private static boolean DOWNLOAD_ALL_UPDATES_ON_PAL_LAUNCH = false;
+    private static boolean LAUNCH_POE_ON_PAL_LAUNCH = false;
+    private static boolean WAIT_FOR_UPDATES_AND_LAUNCH = false;
+    private static String POE_VERSION_TO_LAUNCH = "";
+
+    /*******
+     * AHK *
+     *******
+     */
+    private static String AHK_PATH = "";
 
     public static void parseCustomAHK()
     {
         // Parse JSON, remove from list if they are in the json.
-        File f = new File(UserSettings.getPathInstalldir() + File.separator + "c_ahk.pal");
+        File f = new File(LOCAL_PAL_FOLDER + File.separator + "c_ahk.pal");
 
         if (f.exists())
         {
@@ -190,6 +248,7 @@ public class UserSettings
         PATH_INSTALLDIR = pathInstalldir;
     }
 
+    /*
     public static String getPoeSteam()
     {
         return POE_STEAM;
@@ -219,6 +278,7 @@ public class UserSettings
     {
         POE_BETA = poeBeta;
     }
+    */
 
     public static String getLootFilter()
     {
@@ -308,5 +368,46 @@ public class UserSettings
     public static void setCustomAHKS(ObservableList<CustomAHK> customAHKS)
     {
         UserSettings.customAHKS = customAHKS;
+    }
+
+    public static PALsettings getSettings()
+    {
+        return settings;
+    }
+
+    public static Launcher_Data getLauncher_data()
+    {
+        return launcher_data;
+    }
+
+
+    public static Boolean getFilterblastApiEnabled()
+    {
+        return FILTERBLAST_API_ENABLED;
+    }
+
+    public static void setFilterblastApiEnabled(Boolean filterblastApiEnabled)
+    {
+        FILTERBLAST_API_ENABLED = filterblastApiEnabled;
+    }
+
+    public static Boolean getGithubApiEnabled()
+    {
+        return GITHUB_API_ENABLED;
+    }
+
+    public static void setGithubApiEnabled(Boolean githubApiEnabled)
+    {
+        GITHUB_API_ENABLED = githubApiEnabled;
+    }
+
+    public static Boolean getGithubApiTokenEnabled()
+    {
+        return GITHUB_API_TOKEN_ENABLED;
+    }
+
+    public static void setGithubApiTokenEnabled(Boolean githubApiTokenEnabled)
+    {
+        GITHUB_API_TOKEN_ENABLED = githubApiTokenEnabled;
     }
 }
