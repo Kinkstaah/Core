@@ -28,6 +28,13 @@ public final class ProgramLauncher
             return;
         }
 
+        System.out.println(addon_name);
+        if (addon_name.equals("POE TradeMacro"))
+        {
+            tradeMacro();
+            return;
+        }
+
         String launch_command = addon.getFile_launch();
         assert launch_command != null;
 
@@ -86,6 +93,22 @@ public final class ProgramLauncher
         {
             // TODO: Show window to create issue on github.
             System.out.println("ASK FOR SUPPORT FOR THIS EXTENSION: " + filename[1]);
+        }
+    }
+
+    private static void tradeMacro()
+    {
+        File autohotkeyExe = new File(PALdata.settings.getAHK_Folder() + File.separator + "AutoHotkey.exe ");
+        String launch_command = autohotkeyExe.getPath() + "\"" + UserSettings.getPathAddons()
+                + File.separator + "POE TradeMacro" + File.separator + "Run_TradeMacro.ahk\"" + " -noelevation";
+        System.out.println(launch_command);
+        try
+        {
+            Runtime.getRuntime().exec(launch_command);
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
         }
     }
 
