@@ -37,10 +37,10 @@ public class PoELauncher
                 launch_steam_poe();
                 break;
             case "Stand Alone":
-                launch_poe(UserSettings.getPoePath() + File.separator + "Client.exe");
+                launch_poe(UserSettings.getPoePath() + File.separator + "PathOfExile_x64.exe");
                 break;
             case "Beta":
-                launch_poe(UserSettings.getPoeBeta() + File.separator + "Client.exe");
+                launch_poe(UserSettings.getPoeBeta() + File.separator + "PathOfExile_x64.exe");
                 break;
             default:
                 // Show Popup of no PoE Version set.
