@@ -3,8 +3,10 @@ package GUI;
 import API.Github.UpdateChecker;
 import Backend.SystemTrayHandler;
 import Data.InstalledAddons;
+import Data.PALdata;
 import Data.UserSettings;
 import GUI.PopUp.PopupFactory;
+import GUI.PopUp.UpdatedPopup;
 import GUI.Tables.*;
 import IO.*;
 import Repo.Addons;
@@ -24,6 +26,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.controlsfx.control.CheckComboBox;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
@@ -39,6 +42,8 @@ public class Controller_Core implements Initializable
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
+        Platform.runLater(() -> shouldPopupShow());
+
         installed_tableView.setOnMouseClicked( event ->
         {
             if (event.getClickCount() == 2)
@@ -119,6 +124,7 @@ public class Controller_Core implements Initializable
             TODO: User Repo Adding
             TODO: User API Handling
          */
+
     }
 
     private void daemonSystemTrayHandler()
@@ -157,7 +163,7 @@ public class Controller_Core implements Initializable
 
     private void handle_launch_request()
     {
-        if (UserSettings.isLaunchPoeOnPalLaunch())
+        if (PALdata.settings.isRun_poe_on_launch())
         {
             launchPoE();
         }
@@ -789,12 +795,12 @@ public class Controller_Core implements Initializable
 
             if (addonTableRow.getExtra().equals("AHK"))
             {
-                if (UserSettings.getAhkPath() == null)
+                if (PALdata.settings.getAHK_Folder() == null)
                 {
                     Platform.runLater(() -> PopupFactory.showError(3));
                     return;
                 }
-                if (UserSettings.getAhkPath().equals(""))
+                if (PALdata.settings.getAHK_Folder().equals(""))
                 {
                     Platform.runLater(() -> PopupFactory.showError(3));
                     return;
@@ -972,6 +978,31 @@ public class Controller_Core implements Initializable
         Thread t_download_thread = new Thread(r);
         t_download_thread.setDaemon(true);
         t_download_thread.start();
+    }
+
+    public void shouldPopupShow()
+    {
+        File blocker = new File(PALdata.LOCAL_PAL_FOLDER + File.separator + "b10.v");
+        if (!blocker.exists())
+        {
+            try
+            {
+                blocker.createNewFile();
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();
+            }
+            UpdatedPopup updatedPopup = new UpdatedPopup();
+            try
+            {
+                updatedPopup.start(new Stage());
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+        }
     }
 
     private boolean updateAll = false;

@@ -1,5 +1,6 @@
 package Repo;
 
+import Data.PALdata;
 import Data.UserSettings;
 import GUI.PopUp.PopupFactory;
 import IO.CustomAHK;
@@ -23,32 +24,18 @@ public class PoELauncher
 {
     public static void run() throws IOException, URISyntaxException
     {
-        if (UserSettings.getPoeVersionToLaunch() == null)
+        if (PALdata.settings.getPref_version().equals(""))
         {
             PopupFactory.showError(1);
             return;
         }
 
         pre_launch_addons();
-        // Get PoE version prefered.
-        switch (UserSettings.getPoeVersionToLaunch())
-        {
-            case "Steam":
-                launch_steam_poe();
-                break;
-            case "Stand Alone":
-                launch_poe(UserSettings.getPoePath() + File.separator + "PathOfExile_x64.exe");
-                break;
-            case "Beta":
-                launch_poe(UserSettings.getPoeBeta() + File.separator + "PathOfExile_x64.exe");
-                break;
-            default:
-                // Show Popup of no PoE Version set.
-                break;
-        }
+        launch_poe(PALdata.settings.getPref_version());
         cleanUp();
     }
 
+    @Deprecated
     private static void launch_steam_poe() throws IOException, URISyntaxException
     {
         Desktop desktop = getDesktop();

@@ -133,21 +133,21 @@
             </AnchorPane>
             <AnchorPane fx:id="settings_a_paths" prefHeight="400.0" prefWidth="400.0" visible="false">
                <children>
-                  <TextField fx:id="ADDONS_FOLDER" layoutX="13.0" layoutY="102.0" prefHeight="25.0" prefWidth="312.0" />
+                  <TextField fx:id="ADDONS_FOLDER" disable="true" layoutX="13.0" layoutY="102.0" prefHeight="25.0" prefWidth="312.0" />
                   <Text fill="#2b91af" layoutX="14.0" layoutY="98.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Addons Folder:" wrappingWidth="311.99998903274536" />
-                  <Button fx:id="bBrowseAddons" layoutX="333.0" layoutY="102.0" mnemonicParsing="false" onAction="#BrowseAddons" text="Browse" />
+                  <Button fx:id="bBrowseAddons" disable="true" layoutX="333.0" layoutY="102.0" mnemonicParsing="false" onAction="#BrowseAddons" text="Browse" />
                   <TextField fx:id="LOOTFILTER_FOLDER" layoutX="13.0" layoutY="160.0" prefHeight="25.0" prefWidth="312.0" />
                   <Text fill="#2b91af" layoutX="13.0" layoutY="156.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Loot Filter Folder:   (documents/My Games/Path of Exile)" wrappingWidth="311.99998903274536" />
                   <Button fx:id="bBrowseLootFilter" layoutX="333.0" layoutY="160.0" mnemonicParsing="false" onAction="#BrowseLootFilter" text="Browse" />
-                  <TextField fx:id="POE_STEAM" layoutX="13.0" layoutY="214.0" prefHeight="25.0" prefWidth="312.0" />
+                  <TextField fx:id="POE_STEAM" disable="true" layoutX="13.0" layoutY="214.0" prefHeight="25.0" prefWidth="312.0" />
                   <Text fill="#2b91af" layoutX="14.0" layoutY="213.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PoE Steam Version: (steamapps/common/Path of Exile)" wrappingWidth="311.99998903274536" />
-                  <Button fx:id="bBrowseSteam" layoutX="333.0" layoutY="214.0" mnemonicParsing="false" onAction="#BrowseSteam" text="Browse" />
-                  <TextField fx:id="POE_STANDALONE" layoutX="13.0" layoutY="273.0" prefHeight="25.0" prefWidth="312.0" />
+                  <Button fx:id="bBrowseSteam" disable="true" layoutX="333.0" layoutY="214.0" mnemonicParsing="false" onAction="#BrowseSteam" text="Browse" />
+                  <TextField fx:id="POE_STANDALONE" disable="true" layoutX="13.0" layoutY="273.0" prefHeight="25.0" prefWidth="312.0" />
                   <Text fill="#2b91af" layoutX="14.0" layoutY="269.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PoE Stand Alone:" wrappingWidth="311.99998903274536" />
-                  <Button fx:id="bBrowseSA" layoutX="333.0" layoutY="273.0" mnemonicParsing="false" onAction="#BrowseSA" text="Browse" />
-                  <TextField fx:id="POE_BETA" layoutX="13.0" layoutY="332.0" prefHeight="25.0" prefWidth="312.0" />
+                  <Button fx:id="bBrowseSA" disable="true" layoutX="333.0" layoutY="273.0" mnemonicParsing="false" onAction="#BrowseSA" text="Browse" />
+                  <TextField fx:id="POE_BETA" disable="true" layoutX="13.0" layoutY="332.0" prefHeight="25.0" prefWidth="312.0" />
                   <Text fill="#2b91af" layoutX="14.0" layoutY="328.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PoE Beta Version:" wrappingWidth="311.99998903274536" />
-                  <Button fx:id="bBrowseBeta" layoutX="333.0" layoutY="332.0" mnemonicParsing="false" onAction="#BrowseBeta" text="Browse" />
+                  <Button fx:id="bBrowseBeta" disable="true" layoutX="333.0" layoutY="332.0" mnemonicParsing="false" onAction="#BrowseBeta" text="Browse" />
 
                   <Text fill="#2b91af" layoutX="13.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="System Paths:" wrappingWidth="311.99998903274536">
                      <font>

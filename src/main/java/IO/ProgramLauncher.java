@@ -1,6 +1,7 @@
 package IO;
 
 import Data.InstalledAddons;
+import Data.PALdata;
 import Data.UserSettings;
 import GUI.Tables.InstalledTable;
 import Repo.AddonJson;
@@ -29,7 +30,7 @@ public final class ProgramLauncher
 
         if (addon_name.equals("POE TradeMacro"))
         {
-            tradeMacroNoElevation();
+            tradeMacro();
             return;
         }
 
@@ -68,7 +69,7 @@ public final class ProgramLauncher
         }
         else if (filename[1].equals("ahk"))
         {
-            File autohotkeyEXE = new File(UserSettings.getAhkPath() + File.separator + "autohotkey.exe");
+            File autohotkeyEXE = new File(PALdata.settings.getAHK_Folder() + File.separator + "autohotkey.exe");
             if (autohotkeyEXE.exists())
             {
                 String ahk_path = autohotkeyEXE.getPath();
@@ -94,27 +95,19 @@ public final class ProgramLauncher
         }
     }
 
-    private static void tradeMacroNoElevation()
+    private static void tradeMacro()
     {
-        final String launch_command = "\"" + UserSettings.getPathAddons() + "\\POE TradeMacro\\Run_TradeMacro.ahk\" -noelevation";
-        File autohotkeyEXE = new File(UserSettings.getAhkPath() + File.separator + "autohotkey.exe");
-
-        if (autohotkeyEXE.exists())
+        File autohotkeyExe = new File(PALdata.settings.getAHK_Folder() + File.separator + "AutoHotkey.exe ");
+        String launch_command = autohotkeyExe.getPath() + "\"" + UserSettings.getPathAddons()
+                + File.separator + "POE TradeMacro" + File.separator + "Run_TradeMacro.ahk\"" + " -noelevation";
+        System.out.println(launch_command);
+        try
         {
-            String ahk_path = autohotkeyEXE.getPath();
-            String scriptPath = launch_command;
-
-            Runtime runtime = Runtime.getRuntime();
-            try
-            {
-                runtime.exec(ahk_path + " " + scriptPath );
-            }
-            catch (IOException e)
-            {
-                e.printStackTrace();
-                InstalledAddons.getINSTANCE().scanForInstalledAddons();
-                //TODO: Show window with error
-            }
+            Runtime.getRuntime().exec(launch_command);
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
         }
     }
 

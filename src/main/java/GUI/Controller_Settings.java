@@ -1,8 +1,6 @@
 package GUI;
 
-import Data.IniHandler;
-import Data.InstalledAddons;
-import Data.UserSettings;
+import Data.*;
 import GUI.Tables.FilterTable;
 import GUI.Tables.InstalledTable;
 import GUI.Tables.InstalledTableRow;
@@ -23,6 +21,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
+import org.kohsuke.github.GHCompare;
 
 import java.awt.*;
 import java.io.File;
@@ -34,6 +33,7 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
@@ -168,7 +168,7 @@ public class Controller_Settings implements Initializable
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
-        IniHandler.readProperties();
+        //IniHandler.readProperties();
         Platform.runLater(() -> syncUserSettings());
         Platform.runLater(() -> populateListView());
         settingsSelectorDaemon();
@@ -177,7 +177,12 @@ public class Controller_Settings implements Initializable
     private void initLaunchOptions()
     {
         ObservableList<String> data = FXCollections.observableArrayList();
+        data = PALreader.getINSTANCE().readPoePaths();
+        combobox_PoE_Version.getItems().removeAll(data);
+        combobox_PoE_Version.setItems(data);
+        combobox_PoE_Version.getSelectionModel().select(PALdata.settings.getPref_version());
 
+        /* V1 DATA
         if (!UserSettings.getPoeSteam().equals(""))
         {
             data.add("Steam");
@@ -191,31 +196,28 @@ public class Controller_Settings implements Initializable
         if (!UserSettings.getPoeBeta().equals(""))
         {
             data.add("Beta");
-        }
-
-        combobox_PoE_Version.setItems(data);
-
-        // Get JSON list of installed addons.
-
-
+        }*/
     }
 
     private void syncUserSettings()
     {
+        /*
         POE_BETA.setText(UserSettings.getPoeBeta());
         POE_STANDALONE.setText(UserSettings.getPoePath());
         POE_STEAM.setText(UserSettings.getPoeSteam());
+        */
         ADDONS_FOLDER.setText(UserSettings.getPathAddons());
         LOOTFILTER_FOLDER.setText(UserSettings.getLootFilter());
-        github_api_checkbox.setSelected(UserSettings.isGithubApiTokenEnabled());
-        filterblastCheckBox.setSelected(UserSettings.isFilterblastApiEnabled());
-        github_api_token.setText(UserSettings.getGithub_API_Token());
-        enableAPItoken.setSelected(UserSettings.isGithubApiTokenEnabled());
-        AHK_LOCATION.setText(UserSettings.getAhkPath());
-        checkbox_download_updates_upon_launch.setSelected(UserSettings.isDownloadAllUpdatesOnPalLaunch());
-        checkbox_launch_poe_when_pal_launches.setSelected(UserSettings.isLaunchPoeOnPalLaunch());
-        checkbox_wait_for_updates_to_download.setSelected(UserSettings.isWaitForUpdatesAndLaunch());
-        initLaunchOptions();
+        github_api_checkbox.setSelected(PALdata.settings.isGithub_api_enabled());
+        filterblastCheckBox.setSelected(PALdata.settings.isFilterblast_api());
+        github_api_token.setText(PALdata.settings.getGithub_token());
+        enableAPItoken.setSelected(PALdata.settings.isGithub_api_token_enabled());
+        AHK_LOCATION.setText(PALdata.settings.getAHK_Folder());
+        checkbox_download_updates_upon_launch.setSelected(PALdata.settings.isDown_on_launch());
+        checkbox_launch_poe_when_pal_launches.setSelected(PALdata.settings.isRun_poe_on_launch());
+        checkbox_wait_for_updates_to_download.setSelected(PALdata.settings.isWait_for_updates());
+        Platform.runLater(() -> initLaunchOptions());
+        /*
         String poe_version = UserSettings.getPoeVersionToLaunch();
         if (poe_version == null)
         {
@@ -237,7 +239,7 @@ public class Controller_Settings implements Initializable
         else
         {
             combobox_PoE_Version.getSelectionModel().select(0);
-        }
+        }*/
     }
 
     private void settingsSelectorDaemon()
@@ -365,17 +367,38 @@ public class Controller_Settings implements Initializable
     public void SaveAndExit()
     {
         setUserSettings();
-        IniHandler.writeProperties();
+        PALwriter.getINSTANCE().saveSettings();
+        //InHandler.writeProperties();
         Settings.stage.close();
     }
 
     private void setUserSettings()
     {
+        PALdata.settings.setLoot_filter_dir(LOOTFILTER_FOLDER.getText());
+        PALdata.settings.setGithub_token(github_api_token.getText());
+        PALdata.settings.setGithub_api_token_enabled(enableAPItoken.isSelected());
+        PALdata.settings.setGithub_api_enabled(github_api_checkbox.isSelected());
+        PALdata.settings.setFilterblast_api(filterblastCheckBox.isSelected());
+        PALdata.settings.setWait_for_updates(checkbox_wait_for_updates_to_download.isSelected());
+        PALdata.settings.setRun_poe_on_launch(checkbox_launch_poe_when_pal_launches.isSelected());
+        PALdata.settings.setDown_on_launch(checkbox_download_updates_upon_launch.isSelected());
+        if (combobox_PoE_Version.getSelectionModel().getSelectedItem() != null)
+            PALdata.settings.setPref_version(combobox_PoE_Version.getSelectionModel().getSelectedItem());
+        else
+            PALdata.settings.setPref_version("");
+        UserSettings.setCustomAHKS(customAHKlist.getItems());
+        UserSettings.sync();
+
+
         // TODO: Save Repositories
+        /*
         UserSettings.setLootFilter(LOOTFILTER_FOLDER.getText());
+        /*
         UserSettings.setPoeBeta(POE_BETA.getText());
         UserSettings.setPoePath(POE_STANDALONE.getText());
         UserSettings.setPoeSteam(POE_STEAM.getText());
+        */
+        /*
         UserSettings.setPathAddons(ADDONS_FOLDER.getText());
         UserSettings.setGithub_API_Token(github_api_token.getText());
         UserSettings.setGithubApiTokenEnabled(enableAPItoken.isSelected());
@@ -387,6 +410,7 @@ public class Controller_Settings implements Initializable
         UserSettings.setDownloadAllUpdatesOnPalLaunch(checkbox_download_updates_upon_launch.isSelected());
         UserSettings.setPoeVersionToLaunch(combobox_PoE_Version.getSelectionModel().getSelectedItem());
         UserSettings.setCustomAHKS(customAHKlist.getItems());
+        */
         // Save JSON
         saveAddonLaunch();
         saveCustomAHK();
@@ -498,7 +522,17 @@ public class Controller_Settings implements Initializable
         File f = browse("Browse for your AutoHotKey installation folder");
         if (f==null)
             return;
-        Platform.runLater(() -> AHK_LOCATION.setText(f.getPath()));
+        for (File file : f.listFiles())
+        {
+            if (file.getName().equals("AutoHotkey.exe"))
+            {
+                System.out.println("Found: " + file.getPath());
+                PALdata.settings.setAHK_Folder(f.getPath());
+                Platform.runLater(() -> AHK_LOCATION.setText(file.getPath()));
+                return;
+            }
+        }
+        Platform.runLater(() -> AHK_LOCATION.setText("Couldn't find AutoHotkey.exe"));
     }
 
     public void moveFromListToList(ListView<String> from, ListView<String> to)

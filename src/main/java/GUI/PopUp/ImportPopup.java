@@ -11,12 +11,9 @@ import javafx.stage.StageStyle;
 /**
  *
  */
-public class PopUp extends Application
+public class ImportPopup extends Application
 {
     public static Stage stage;
-    public static String top_text;
-    public static String bold_text;
-    public static String small_text;
 
     public void start(Stage primaryStage) throws Exception
     {
@@ -24,8 +21,8 @@ public class PopUp extends Application
         FXMLLoader fxmlLoader = new FXMLLoader();
         primaryStage.initStyle(StageStyle.UNDECORATED);
         primaryStage.setAlwaysOnTop(true);
-        Parent root = fxmlLoader.load(getClass().getResource("/popup.fxml"));
-        primaryStage.setTitle("PAL: Message");
+        Parent root = fxmlLoader.load(getClass().getResource("/popup_import.fxml"));
+        primaryStage.setTitle("PAL: Importer");
         primaryStage.getIcons().add(new Image(getClass().getResource("/witch.png").toString()));
         Scene scene = new Scene(root, 350, 150);
         primaryStage.setScene(scene);
