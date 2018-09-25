@@ -35,7 +35,6 @@ public class PoELauncher
         cleanUp();
     }
 
-    @Deprecated
     private static void launch_steam_poe() throws IOException, URISyntaxException
     {
         Desktop desktop = getDesktop();
@@ -45,13 +44,44 @@ public class PoELauncher
 
     private static void launch_poe(String exe)
     {
-        try
+        if (exe.contains("PathOfExileSteam.exe") || exe.contains("PathOfExile_x64Steam.exe"))
         {
-            Runtime.getRuntime().exec(exe);
+            try
+            {
+                launch_steam_poe();
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();
+            }
+            catch (URISyntaxException e)
+            {
+                e.printStackTrace();
+            }
         }
-        catch (IOException e)
+        else if (exe.contains("PathOfExile.exe") || exe.contains("PathOfExile_x64.exe"))
         {
-            e.printStackTrace();
+            String dir;
+            String executable;
+            if (exe.contains("PathOfExile_x64.exe"))
+            {
+                executable = "PathOfExile_x64.exe";
+                dir = exe.replace(executable, "");
+            }
+            else
+            {
+                executable = "PathOfExile.exe";
+                dir = exe.replace(executable, "");
+            }
+            try
+            {
+                Runtime.getRuntime().exec(exe, null, new File(dir));
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();
+            }
+
         }
     }
 
