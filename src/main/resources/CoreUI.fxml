@@ -12,9 +12,8 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
-<?import org.controlsfx.control.CheckComboBox?>
 
-<AnchorPane maxHeight="500.0" maxWidth="600.0" minHeight="500.0" minWidth="600.0" prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller_Core">
+<AnchorPane maxHeight="500.0" maxWidth="600.0" minHeight="500.0" minWidth="600.0" prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller_Core">
    <children>
       <AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #3C3F41;">
          <children>
@@ -141,7 +140,6 @@
                                  </font>
                               </Text>
                               <TextField fx:id="addon_search" layoutX="448.0" layoutY="3.0" promptText="Filter" style="-fx-prompt-text-fill: #2B91AF;" visible="false" />
-                              <CheckComboBox fx:id="addon_repo" layoutX="110.0" layoutY="3.0" prefHeight="25.0" prefWidth="160.0" visible="false" />
                               <Text fx:id="addon_download_text_hl" fill="WHITE" layoutX="330.0" layoutY="20.0" onMouseClicked="#addon_download_onMouseClicked" onMouseEntered="#addon_download_onMouseOver" onMouseExited="#addon_download_onMouseExit" strokeType="OUTSIDE" strokeWidth="0.0" text="Download" visible="false">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
@@ -190,7 +188,6 @@
                                     <Font name="System Bold" size="12.0" />
                                  </font>
                               </Text>
-                              <CheckComboBox fx:id="filters_repo" layoutX="110.0" layoutY="3.0" prefHeight="25.0" prefWidth="160.0" visible="false" />
                               <TextField fx:id="filters_search" layoutX="448.0" layoutY="3.0" promptText="Filter" style="-fx-prompt-text-fill: #2B91AF;" visible="false" />
                               <Text fx:id="filters_refresh_text_hl" fill="WHITE" layoutX="38.0" layoutY="20.0" onMouseClicked="#refreshOnClick" onMouseEntered="#refreshOnMouseEnter" onMouseExited="#refreshOnMouseExit" strokeType="OUTSIDE" strokeWidth="0.0" text="Refresh" visible="false">
                                  <font>
