@@ -1,10 +1,8 @@
 package Backend;
 
-import GUI.Core;
-import GUI.Settings;
-import javafx.stage.Stage;
-
+import javax.imageio.ImageIO;
 import java.awt.*;
+import java.io.IOException;
 import java.net.URL;
 
 /**
@@ -27,7 +25,22 @@ public class SystemTrayHandler
         final PopupMenu popup = new PopupMenu();
 
         URL url = System.class.getResource("/tray/baseTray.png");
-        Image image = Toolkit.getDefaultToolkit().getImage(url);
+        Image image = null;
+        try
+        {
+            image = ImageIO.read(url);
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+        //Image image = Toolkit.getDefaultToolkit().getImage(url);
+
+        if (image == null)
+        {
+            System.out.println("WARNING: NO SYSTEMTRAY CAN BE MADE.");
+            return;
+        }
 
         final TrayIcon trayIcon = new TrayIcon(image);
 

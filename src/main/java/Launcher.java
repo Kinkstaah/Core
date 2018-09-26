@@ -24,7 +24,15 @@ public class Launcher
     public static void main(String[] args)
     {
         PALdata paldata = new PALdata();
-        SystemTrayHandler.createSystemTray();
+        try
+        {
+            SystemTrayHandler.createSystemTray();
+        }
+        catch (IllegalArgumentException ex)
+        {
+            System.out.println("JRE10 does not support SystemTray, running without SystemTray.");
+        }
+
         // Check if user is using old launcher
         String local = System.getenv("LOCALAPPDATA");
         File new_launcher = new File(local + File.separator + "PAL" + File.separator + "launcher_data.pal");
