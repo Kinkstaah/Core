@@ -64,21 +64,7 @@ public class UpdatedPopup_Controller implements Initializable
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
-        Platform.runLater(() -> updateText.setText("IMPORTANT!\n" +
-                "Double check your settings, this version changed a lot to how settings work.\n" +
-                "\n" +
-                "IMPORTANT!!\n" +
-                "You will have to redownload your Addons due to changes in how the program works.\n" +
-                "Sorry for the inconvenience, but due to this change this won't have to happen in the future!\n" +
-                "\n" +
-                "Changes:\n" +
-                "- Changed Launcher and how file selection is handled.\n" +
-                "- Complete overhaul of how settings are stored and handled.\n" +
-                "- Added More Addons to Repo.\n" +
-                "- PoE Trade Macro will now run without asking for Admin Privelege.\n" +
-                "- Change PoE Stand Alone launching.\n" +
-                "- Fix Github API enabled checkbox bug.\n" +
-                "- Upon first launch a little box will notify you of new changes made in this version."));
+        Platform.runLater(() -> updateText.setText(UpdatedPopup.updateText));
 
 
     }
