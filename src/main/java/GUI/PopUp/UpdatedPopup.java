@@ -35,5 +35,5 @@ public class UpdatedPopup extends Application
         launch(args);
     }
 
-    public static final String updateText = "Build #12\n JRE10 should now be able to use PAL.\n(If you're seeing this it worked!).";
+    public static final String updateText = "Build #13\nAdded launch support for Path of Maps v1.2.0";
 }

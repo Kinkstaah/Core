@@ -42,12 +42,20 @@ public final class ProgramLauncher
         launch_command = launch_command.replace("/", File.separator);
         // Execute Launch Command:
         String[] filename = getFileName(launch_command);
+
+        System.out.println("COMMNAND: " + launch_command);
+        if (addon_name.equals("Path of Maps"))
+        {
+            pathOfMaps(launch_command);
+            return;
+        }
+
         if (filename[1].equals("exe"))
         {
             Runtime runtime = Runtime.getRuntime();
             try
             {
-                runtime.exec(launch_command);
+                runtime.exec("\"" + launch_command + "\"");
             }
             catch (IOException e)
             {
@@ -92,6 +100,20 @@ public final class ProgramLauncher
         {
             // TODO: Show window to create issue on github.
             System.out.println("ASK FOR SUPPORT FOR THIS EXTENSION: " + filename[1]);
+        }
+    }
+
+    private static void pathOfMaps(String launch_command)
+    {
+        System.out.println("Attempting to launch Path of Maps.");
+        Runtime runtime = Runtime.getRuntime();
+        try
+        {
+            runtime.exec("rundll32 url.dll,FileProtocolHandler \"" + launch_command + "\"");
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
         }
     }
 

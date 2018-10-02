@@ -8,7 +8,7 @@
 
 <AnchorPane onMouseDragged="#onMouseDragged" onMousePressed="#onMousePressed" prefHeight="300.0" prefWidth="499.0" style="-fx-background-color: #3C3F41;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.PopUp.UpdatedPopup_Controller">
    <children>
-      <Text fx:id="bold_text" fill="WHITE" layoutX="11.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="New in Build #12" wrappingWidth="326.53125">
+      <Text fx:id="bold_text" fill="WHITE" layoutX="11.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="New in Build #13" wrappingWidth="326.53125">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
@@ -18,7 +18,7 @@
             <Image url="@icons/cancel0.png" />
          </image>
       </ImageView>
-      <Text fx:id="topbar_text" fill="WHITE" layoutX="13.0" layoutY="17.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome to Build #12" wrappingWidth="180.53125" />
+      <Text fx:id="topbar_text" fill="WHITE" layoutX="13.0" layoutY="17.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome to Build #13" wrappingWidth="180.53125" />
       <Text fx:id="updateText" fill="WHITE" layoutX="11.0" layoutY="69.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="482.5312448143959">
          <font>
             <Font size="14.0" />
