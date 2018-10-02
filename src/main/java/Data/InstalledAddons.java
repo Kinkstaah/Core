@@ -100,10 +100,18 @@ public final class InstalledAddons
                 {
                     //System.out.println(i.getVersion());
                     //System.out.println(i.getKey());
-                    InstalledTableRow installedtableRow = FilterTable.getINSTANCE().getFilterByPresetName(i.getKey()).convertToInstallTableRow();
-                    installedtableRow.setName(i.getKey());
-                    installedtableRow.setVersion(i.getVersion());
-                    list_of_installed_addons.add(installedtableRow);
+                    try
+                    {
+                        InstalledTableRow installedtableRow = FilterTable.getINSTANCE().getFilterByPresetName(i.getKey()).convertToInstallTableRow();
+                        installedtableRow.setName(i.getKey());
+                        installedtableRow.setVersion(i.getVersion());
+                        list_of_installed_addons.add(installedtableRow);
+                    }
+                    catch (NullPointerException ex)
+                    {
+                        ex.printStackTrace();
+                    }
+
                 }
             }
             catch (IOException e)
