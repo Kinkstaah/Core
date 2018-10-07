@@ -27,6 +27,7 @@ public class UserSettings
     public static ObservableList<CustomAHK> customAHKS = FXCollections.observableArrayList();
     private static ArrayList<Repository> repositories = new ArrayList<>();
     public static final String LOCAL_PAL_FOLDER = System.getenv("LOCALAPPDATA") + File.separator + "PAL";
+    public static ObservableList<String> PoE_Paths = FXCollections.observableArrayList();
 
     /***********
      * v1 Data *

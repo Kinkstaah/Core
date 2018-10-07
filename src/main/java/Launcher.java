@@ -7,6 +7,7 @@ import Data.UserSettings;
 import GUI.Core;
 import GUI.OOD.updatepls;
 import GUI.PopUp.ImportPopup;
+import Repo.LauncherUpdater;
 import org.kohsuke.github.GitHub;
 
 import java.io.File;

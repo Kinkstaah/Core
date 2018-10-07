@@ -6,7 +6,7 @@
 
     <groupId>RizlimDev</groupId>
     <artifactId>PoE-Addon-Launcher-Core</artifactId>
-    <version>b13</version>
+    <version>b15</version>
     <build>
         <plugins>
             <plugin>

@@ -1,4 +1,4 @@
-package GUI;
+package GUI.PopUp;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -11,7 +11,8 @@ import javafx.stage.StageStyle;
 /**
  *
  */
-public class Settings extends Application
+public class Updated_HTML_Popup
+        extends Application
 {
     public static Stage stage;
 
@@ -19,18 +20,18 @@ public class Settings extends Application
     {
         primaryStage = new Stage();
         FXMLLoader fxmlLoader = new FXMLLoader();
-        Parent root = fxmlLoader.load(getClass().getResource("/Settings.fxml"));
-        primaryStage.setTitle("PAL: Settings");
-        primaryStage.setResizable(false);
+        primaryStage.initStyle(StageStyle.UNDECORATED);
+        primaryStage.setAlwaysOnTop(true);
+        Parent root = fxmlLoader.load(getClass().getResource("/update_notes.fxml"));
+        primaryStage.setTitle("PAL: NEW!");
         primaryStage.getIcons().add(new Image(getClass().getResource("/witch.png").toString()));
-        Scene scene = new Scene(root, 605, 400);
-        scene.getStylesheets().add("layout_settings.css");
+        Scene scene = new Scene(root, 499, 300);
         primaryStage.setScene(scene);
         stage = primaryStage;
         primaryStage.show();
     }
 
-    public void launch_ui(String[] args)
+    public void activate(String[] args)
     {
         launch(args);
     }

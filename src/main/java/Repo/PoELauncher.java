@@ -22,7 +22,9 @@ import static java.awt.Desktop.getDesktop;
  */
 public class PoELauncher
 {
-    public static void run() throws IOException, URISyntaxException
+    public static boolean launch_addons = true;
+
+    public static void run()
     {
         if (PALdata.settings.getPref_version().equals(""))
         {
@@ -30,7 +32,11 @@ public class PoELauncher
             return;
         }
 
-        pre_launch_addons();
+        if (launch_addons)
+        {
+            pre_launch_addons();
+            launch_addons = false;
+        }
         launch_poe(PALdata.settings.getPref_version());
         cleanUp();
     }

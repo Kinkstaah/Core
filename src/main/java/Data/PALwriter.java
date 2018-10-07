@@ -3,6 +3,7 @@ package Data;
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import javafx.collections.ObservableList;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -35,6 +36,37 @@ public final class PALwriter
         catch (IOException e)
         {
             e.printStackTrace();
+        }
+    }
+
+    public void savePoEpaths()
+    {
+        File f = new File(UserSettings.LOCAL_PAL_FOLDER + File.separator + "poe_paths.pal");
+        if (f.exists())
+        {
+            f.delete();
+        }
+
+        //TODO: Get list of PoE Paths.
+        ObservableList<String> poe_paths = UserSettings.PoE_Paths;
+
+        String[] array = new String[poe_paths.size()];
+        for (int c = 0; c < array.length; c++)
+        {
+            array[c] = poe_paths.get(c);
+        }
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        if (array.length > 0)
+        {
+            try
+            {
+                objectMapper.writeValue(f, array);
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();
+            }
         }
     }
 

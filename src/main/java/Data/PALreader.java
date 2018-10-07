@@ -87,6 +87,7 @@ public final class PALreader
             try
             {
                 PALdata.launcher_data = objectMapper.readValue(f, Launcher_Data.class);
+                PALdata.launcher_data.setLauncher_location(sanatize_launcher_location(PALdata.launcher_data.getLauncher_location()));
                 return true;
             }
             catch (IOException e)
@@ -95,6 +96,11 @@ public final class PALreader
             }
         }
         return false;
+    }
+
+    private static String sanatize_launcher_location(String str)
+    {
+        return str.substring(1);
     }
 
     public static PALreader getINSTANCE()

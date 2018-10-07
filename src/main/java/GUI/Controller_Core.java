@@ -4,12 +4,15 @@ import API.Github.UpdateChecker;
 import Backend.SystemTrayHandler;
 import Data.InstalledAddons;
 import Data.PALdata;
+import Data.PALreader;
 import Data.UserSettings;
 import GUI.PopUp.PopupFactory;
 import GUI.PopUp.UpdatedPopup;
+import GUI.PopUp.Updated_HTML_Popup;
 import GUI.Tables.*;
 import IO.*;
 import Repo.Addons;
+import Repo.LauncherUpdater;
 import Repo.PoELauncher;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
@@ -31,6 +34,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.concurrent.ExecutorService;
@@ -42,6 +46,22 @@ public class Controller_Core implements Initializable
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
+        //TODO: Sha1 check.
+        /*
+        try
+        {
+            System.out.println(LauncherUpdater.getINSTANCE().getLauncherSHA1(new File(PALdata.launcher_data.getLauncher_location())));
+        }
+        catch (NoSuchAlgorithmException e)
+        {
+            e.printStackTrace();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }*/
+
+        UserSettings.PoE_Paths = PALreader.getINSTANCE().readPoePaths();
         Platform.runLater(() -> shouldPopupShow());
 
         installed_tableView.setOnMouseClicked( event ->
@@ -671,7 +691,14 @@ public class Controller_Core implements Initializable
         Settings settings = new Settings();
         try
         {
-            settings.start(new Stage());
+            if (Settings.stage == null)
+            {
+                settings.start(new Stage());
+            }
+            else if (!Settings.stage.isShowing())
+            {
+                settings.start(new Stage());
+            }
         }
         catch (Exception e)
         {
@@ -847,21 +874,7 @@ public class Controller_Core implements Initializable
             return;
         }
         Platform.runLater(() -> launch_text.setText("Launching Path of Exile..."));
-        Platform.runLater(() ->
-        {
-            try
-            {
-                PoELauncher.run();
-            }
-            catch (IOException e)
-            {
-                e.printStackTrace();
-            }
-            catch (URISyntaxException e)
-            {
-                e.printStackTrace();
-            }
-        });
+        Platform.runLater(PoELauncher::run);
         Platform.runLater(() -> launch_text.setText("Launch Path of Exile"));
     }
 
@@ -982,18 +995,27 @@ public class Controller_Core implements Initializable
 
     public void shouldPopupShow()
     {
-        File blocker = new File(PALdata.LOCAL_PAL_FOLDER + File.separator + "b13.v");
+        File blocker = new File(PALdata.LOCAL_PAL_FOLDER + File.separator + "b15.v");
         if (!blocker.exists())
         {
             try
             {
+                File dir = new File(PALdata.LOCAL_PAL_FOLDER);
+                for (File f : dir.listFiles())
+                {
+                    if (f.getName().matches("(b)(\\d){1,999999}.v"))
+                    {
+                        f.delete();
+                    }
+                }
                 blocker.createNewFile();
+
             }
             catch (IOException e)
             {
                 e.printStackTrace();
             }
-            UpdatedPopup updatedPopup = new UpdatedPopup();
+            Updated_HTML_Popup updatedPopup = new Updated_HTML_Popup();
             try
             {
                 updatedPopup.start(new Stage());

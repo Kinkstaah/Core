@@ -35,11 +35,16 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.SQLOutput;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class Controller_Settings implements Initializable
 {
 
+    public Button bDoItForMe;
+    public Button bRemoveSelectedPoEFolder;
+    public Button bAddPoELocation;
+    public ListView<String> listPoEInstalls;
     @FXML
     private ListView<String> settings_listView;
 
@@ -176,11 +181,10 @@ public class Controller_Settings implements Initializable
 
     private void initLaunchOptions()
     {
-        ObservableList<String> data = FXCollections.observableArrayList();
-        data = PALreader.getINSTANCE().readPoePaths();
-        combobox_PoE_Version.getItems().removeAll(data);
-        combobox_PoE_Version.setItems(data);
+        combobox_PoE_Version.getItems().removeAll(UserSettings.PoE_Paths);
+        combobox_PoE_Version.setItems(UserSettings.PoE_Paths);
         combobox_PoE_Version.getSelectionModel().select(PALdata.settings.getPref_version());
+        listPoEInstalls.setItems(UserSettings.PoE_Paths);
 
         /* V1 DATA
         if (!UserSettings.getPoeSteam().equals(""))
@@ -386,6 +390,9 @@ public class Controller_Settings implements Initializable
             PALdata.settings.setPref_version(combobox_PoE_Version.getSelectionModel().getSelectedItem());
         else
             PALdata.settings.setPref_version("");
+
+        PALwriter.getINSTANCE().savePoEpaths();
+
         UserSettings.setCustomAHKS(customAHKlist.getItems());
         UserSettings.sync();
 
@@ -686,5 +693,99 @@ public class Controller_Settings implements Initializable
     {
         Hyperlink link = (Hyperlink) mouseEvent.getSource();
         openBrowser(link.getText());
+    }
+
+    public void AddPoEFolder()
+    {
+        File dir = browse("Browse for a Path of Exile Folder.");
+        if (dir != null)
+        {
+            if (dir.exists())
+            {
+                checkDir(Objects.requireNonNull(dir.listFiles()));
+                listPoEInstalls.setItems(UserSettings.PoE_Paths);
+                combobox_PoE_Version.setItems(UserSettings.PoE_Paths);
+            }
+        }
+    }
+
+    private void checkDir(File[] filesInDir)
+    {
+        for (File f : filesInDir)
+        {
+            checkForPoE(f);
+        }
+    }
+
+    public void RemoveSelectedPoEVersion()
+    {
+        Platform.runLater(() ->
+        {
+            String selectedItem = listPoEInstalls.getSelectionModel().getSelectedItem();
+            if (selectedItem != null)
+            {
+                UserSettings.PoE_Paths.remove(selectedItem);
+                listPoEInstalls.setItems(UserSettings.PoE_Paths);
+                combobox_PoE_Version.setItems(UserSettings.PoE_Paths);
+            }
+        });
+    }
+
+    @Deprecated
+    public void FindPoEVersionsOnSystem(ActionEvent actionEvent)
+    {
+        File[] paths;
+        paths = File.listRoots();
+        for (File f : paths)
+        {
+            //TODO: Implement Ask user what drives to scan.
+            checkDirRecursive(f.listFiles());
+        }
+    }
+
+    @Deprecated
+    private void checkDirRecursive(File[] filesInDir)
+    {
+        for (File f : filesInDir)
+        {
+            if (f != null)
+            {
+                if (f.isDirectory())
+                {
+                    Runnable r = () -> checkDirRecursive(f.listFiles());
+                    Thread t = new Thread(r);
+                    t.setDaemon(true);
+                    t.start();
+                }
+                else
+                {
+                    checkForPoE(f);
+                }
+            }
+        }
+    }
+
+    private void checkForPoE(File f)
+    {
+        final String filename = f.getName();
+        if (filename.equals("PathOfExile_x64Steam.exe"))
+        {
+            if (!UserSettings.PoE_Paths.contains(f.getPath()))
+                UserSettings.PoE_Paths.add(f.getPath());
+        }
+        else if (filename.equals("PathOfExile_x64.exe"))
+        {
+            if (!UserSettings.PoE_Paths.contains(f.getPath()))
+                UserSettings.PoE_Paths.add(f.getPath());
+        }
+        else if (filename.contains(".exe") && filename.contains("PathOfExile"))
+        {
+            if (!UserSettings.PoE_Paths.contains(f.getPath()))
+                UserSettings.PoE_Paths.add(f.getPath());
+        }
+        else
+        {
+            // Not a PoE Dir.
+        }
     }
 }
