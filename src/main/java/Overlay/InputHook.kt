@@ -4,6 +4,7 @@ import org.jnativehook.GlobalScreen
 import org.jnativehook.NativeHookException
 import org.jnativehook.keyboard.NativeKeyEvent
 import org.jnativehook.keyboard.NativeKeyListener
+import java.io.File
 import java.util.logging.Level
 import java.util.logging.Logger
 
@@ -64,7 +65,9 @@ class InputHook
                     {
                         val keyText = NativeKeyEvent.getKeyText(keyCode)
                         keyState = KeyState(modifiers.shiftHeld, modifiers.ctrlHeld, modifiers.altHeld, keyCode)
-                        println("User typed: ${modifiers.isHeld()} $keyText")
+
+                        KeyHandler.check(keyState, System.getenv("LOCALAPPDATA") + File.separator + "PAL" + File.separator + "keybinds.pal")
+
                     }
 
                     override fun nativeKeyPressed(nativeEvent: NativeKeyEvent)
