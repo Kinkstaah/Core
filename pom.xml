@@ -150,6 +150,21 @@
             <artifactId>kotlinx-coroutines-javafx</artifactId>
             <version>0.30.2</version>
         </dependency>
+        <dependency>
+            <groupId>com.twelvemonkeys.imageio</groupId>
+            <artifactId>imageio-bmp</artifactId>
+            <version>3.4</version>
+        </dependency>
+        <dependency>
+            <groupId>com.twelvemonkeys.imageio</groupId>
+            <artifactId>imageio-core</artifactId>
+            <version>3.4</version>
+        </dependency>
+        <dependency>
+            <groupId>com.twelvemonkeys.imageio</groupId>
+            <artifactId>imageio-metadata</artifactId>
+            <version>3.4</version>
+        </dependency>
     </dependencies>
 
 </project>
