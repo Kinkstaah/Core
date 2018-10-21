@@ -13,6 +13,7 @@ import javafx.scene.Parent
 import javafx.scene.Scene
 import javafx.scene.image.Image
 import javafx.scene.layout.AnchorPane
+import javafx.scene.paint.Color
 import javafx.stage.Stage
 import javafx.stage.StageStyle
 import kotlinx.coroutines.experimental.Dispatchers
@@ -31,7 +32,7 @@ import javax.imageio.ImageReader
 /**
  *
  */
-class WebAddonController(var data: WebAddonData) : Initializable
+class WebAddonController(var data: OverlayAddonData) : Initializable
 {
     override fun initialize(location: URL?, resources: ResourceBundle?)
     {
@@ -42,13 +43,22 @@ class WebAddonController(var data: WebAddonData) : Initializable
     lateinit var webView: WebView
 }
 
-//TODO: Add Favicon Location
-data class WebAddonData(var url: String,
-                        var x_dimension: Double,
-                        var y_dimension: Double,
-                        var width: Double,
-                        var height: Double,
-                        var name: String)
+data class OverlayAddonData(var url: String,
+                            var x: Int,
+                            var y: Int,
+                            var width: Double,
+                            var height: Double,
+                            var name: String,
+                            var favicon: String,
+                            var description: String,
+                            var abbreviation: String
+                           )
+{
+    override fun toString(): String
+    {
+        return name;
+    }
+}
 
 //TODO: Make Generic for any HTML
 class WebAddon : Application()
@@ -75,7 +85,7 @@ class WebAddon : Application()
             }
         }
 
-        fun createUI(primaryStage: Stage, data: WebAddonData)
+        fun createUI(primaryStage: Stage, data: OverlayAddonData)
         {
             var primaryStage = primaryStage
             primaryStage = Stage()
@@ -104,7 +114,7 @@ class WebAddon : Application()
         var objectMapper = ObjectMapper()
                 .enable(JsonParser.Feature.ALLOW_UNQUOTED_FIELD_NAMES)
                 .registerModule(KotlinModule())
-        var data = objectMapper.readValue(url, Array<WebAddonData>::class.java)
+        var data = objectMapper.readValue(url, Array<OverlayAddonData>::class.java)
 
         data.forEach { WebAddon.createUI(Stage(), it) }
 
@@ -117,6 +127,16 @@ fun main(args: Array<String>)
     GlobalScope.launch {
         InputHook.main()
     }
+
+    val url = URL("https://raw.githubusercontent.com/POE-Addon-Launcher/Curated-Repo/master/websites.json")
+
+    var objectMapper = ObjectMapper()
+            .enable(JsonParser.Feature.ALLOW_UNQUOTED_FIELD_NAMES)
+            .registerModule(KotlinModule())
+    GridDisplay.data = objectMapper.readValue(url, Array<OverlayAddonData>::class.java)
+
+    GridDisplay.data.forEach { GridDisplay.dataMap[it.name] = it }
+
     //Application.launch(WebAddon::class.java, *args)
     Application.launch(SideBar::class.java, *args)
 }

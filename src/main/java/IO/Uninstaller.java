@@ -2,10 +2,7 @@ package IO;
 
 import Data.InstalledAddons;
 import Data.UserSettings;
-import GUI.PopUp.PopupFactory;
-import GUI.Tables.InstalledTable;
 import GUI.Tables.InstalledTableRow;
-import Overlay.WebAddonData;
 import Repo.Addons;
 
 import java.io.File;
@@ -18,7 +15,6 @@ public class Uninstaller
 {
     public static void unninstall(String name)
     {
-        WebAddonData[] foo = new WebAddonData[22];
         InstalledTableRow i = Addons.getINSTANCe().getAddonByName(name).convertToInstallTableRow();
         i.setStatus("Removing");
         InstalledAddons.getINSTANCE().updateAddonInfo(i);

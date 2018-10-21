@@ -1,5 +1,6 @@
 package Overlay
 
+import GUI.PopUp.UpdatedPopup
 import com.fasterxml.jackson.core.JsonParser
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.KotlinModule
@@ -14,14 +15,15 @@ import javafx.scene.Parent
 import javafx.scene.Scene
 import javafx.scene.image.Image
 import javafx.scene.image.ImageView
+import javafx.scene.input.MouseEvent
+import javafx.scene.layout.Background
+import javafx.scene.paint.Color
 import javafx.stage.StageStyle
 import kotlinx.coroutines.experimental.Dispatchers
 import kotlinx.coroutines.experimental.GlobalScope
+import kotlinx.coroutines.experimental.delay
 import kotlinx.coroutines.experimental.launch
-import java.awt.Font
-import java.awt.FontMetrics
-import java.awt.Graphics
-import java.awt.Graphics2D
+import java.awt.*
 import java.awt.geom.Rectangle2D
 import java.awt.image.BufferedImage
 import java.io.File
@@ -38,21 +40,32 @@ import javax.imageio.stream.ImageInputStream
  */
 class SideBar : Application()
 {
+    companion object
+    {
+        lateinit var stage: Stage
+    }
+
     override fun start(primaryStage: Stage?)
     {
-        var primaryStage = primaryStage
-        primaryStage = Stage()
-        val fxmlLoader = FXMLLoader()
-        val root = fxmlLoader.load<Parent>(javaClass.getResource("/overlay/GridDisplay.fxml").openStream())
-        primaryStage.initStyle(StageStyle.UNDECORATED)
-        primaryStage.icons.add(Image(javaClass.getResource("/witch.png").toString()))
-        val scene = Scene(root, 200.0, 500.0)
+        GridDisplay.gridDisplay = GridDisplay(10, 4)
+        stage = Stage()
+        //val fxmlLoader = FXMLLoader()
+        //val root = fxmlLoader.load<Parent>(javaClass.getResource("/overlay/GridDisplay.fxml").openStream())
+        stage.initStyle(StageStyle.UNDECORATED)
+        stage.icons.add(Image(javaClass.getResource("/witch.png").toString()))
+        val scene = Scene(GridDisplay.gridDisplay!!.display, 200.0, 500.0)
         scene.stylesheets.add("layout_settings.css")
-        primaryStage.scene = scene
-        primaryStage.isAlwaysOnTop = true
-        primaryStage.show()
+        stage.initStyle(StageStyle.TRANSPARENT)
+        scene.fill = Color.TRANSPARENT
+        stage.scene = scene
+        stage.isAlwaysOnTop = true
+        stage.x = 0.0
+        stage.show()
     }
 }
+
+
+
 
 class SideBarController : Initializable
 {
@@ -63,31 +76,33 @@ class SideBarController : Initializable
 
     override fun initialize(location: URL?, resources: ResourceBundle?)
     {
+        iconGridPane.background = Background.EMPTY
+        iconGridPane.style = "-fx-background-color: rgba(255, 255, 255, 0.5); -fx-background-radius: 10;"
+
         val url = URL("https://raw.githubusercontent.com/POE-Addon-Launcher/Curated-Repo/master/websites.json")
 
         var objectMapper = ObjectMapper()
                 .enable(JsonParser.Feature.ALLOW_UNQUOTED_FIELD_NAMES)
                 .registerModule(KotlinModule())
-        var data = objectMapper.readValue(url, Array<WebAddonData>::class.java)
+        var data = objectMapper.readValue(url, Array<OverlayAddonData>::class.java)
 
-        for (c in 0 until data.size)
-        {
-            GlobalScope.launch(Dispatchers.Main) {
-                when (true)
-                {
-                    c in 0..10 -> iconGridPane.add(setFavicon(data[c]), 0, c)
-                    c in 11..20 -> iconGridPane.add(setFavicon(data[c]), 1, c-11)
-                    c in 21..30 -> iconGridPane.add(setFavicon(data[c]), 2, c-21)
+
+        GlobalScope.launch {
+            for (c in 0 until data.size)
+            {
+                GlobalScope.launch(Dispatchers.Main) {
+                    iconGridPane.add(setFavicon(data[c].favicon, data[c].abbreviation), data[c].y, data[c].x)
                 }
             }
         }
     }
 
-    fun setFavicon(data: WebAddonData): ImageView
+
+    fun setFavicon(favicon: String, name: String): ImageView
     {
         try
         {
-            var image: Image = SwingFXUtils.toFXImage(ImageIO.read(URL(data.url + "/favicon.ico")), null)
+            var image: Image = SwingFXUtils.toFXImage(ImageIO.read(URL(favicon)), null)
             var img = ImageView(image)
             img.fitHeight = imageSize.toDouble()
             img.fitWidth = imageSize.toDouble()
@@ -95,11 +110,11 @@ class SideBarController : Initializable
         }
         catch (e: Exception)
         {
-            return createImageWithText(ImageCreator.nameSanitizer(data.name))
+            return createImageWithText(name)
         }
         catch (e: IOException)
         {
-            return createImageWithText(ImageCreator.nameSanitizer(data.name))
+            return createImageWithText(name)
         }
     }
 
@@ -122,87 +137,30 @@ class SideBarController : Initializable
         var fxImage: Image = SwingFXUtils.toFXImage(image, null)
         return ImageView(fxImage)
     }
-}
 
-/**
- * https://stackoverflow.com/questions/19693710/drawing-a-character-with-a-specific-size-in-java
- */
-class ImageCreator
-{
-    companion object
+    var xOffset = 0.0
+    var yOffset = 0.0
+
+    fun onMouseDragged(mouseEvent: MouseEvent)
     {
-        fun drawString(g: Graphics, str: String, x: Double, y: Double, hAlign: String, vAlign: String)
-        {
+        SideBar.stage.x = mouseEvent.screenX + xOffset
+        SideBar.stage.y = mouseEvent.screenY + yOffset
+    }
 
-            var metrics = g.getFontMetrics();
-            var dX = x.toInt()
-            var dY = y.toInt()
+    fun onMousePressed(mouseEvent: MouseEvent)
+    {
+        xOffset = SideBar.stage.x - mouseEvent.screenX
+        yOffset = SideBar.stage.y - mouseEvent.screenY
+    }
 
-            when (hAlign.toLowerCase())
-            {
-                "center" -> dX -= (metrics.getStringBounds(str, g).width /2.0).toInt()
-                "right" -> dX -= (metrics.getStringBounds(str, g).width).toInt()
-            }
+    fun onMouseExit(mouseEvent: MouseEvent)
+    {
+        SideBar.stage.opacity = 0.01
+    }
 
-            when (vAlign.toLowerCase())
-            {
-                "center" -> dY += (metrics.ascent / 2.0).toInt()
-                "top" -> dY += metrics.ascent
-            }
-            g.drawString(str, dX, dY)
-        }
-
-        fun pickOptimalFontSize(g: Graphics2D, title: String, width: Int, height: Int, baseFont: Font): Font
-        {
-            lateinit var rect: Rectangle2D
-
-            var fontSize = 32 //initial value
-            var font: Font
-            do
-            {
-                fontSize-=1;
-                font = baseFont.deriveFont(fontSize);
-                rect = getStringBoundsRectangle2D(g, title, font);
-            }
-            while (rect.getWidth() >= width || rect.getHeight() >= height)
-            return font;
-        }
-
-        fun getStringBoundsRectangle2D (g: Graphics, title: String, font: Font): Rectangle2D
-        {
-            g.setFont(font)
-            val fontMetrics = g.getFontMetrics()
-            val rect = fontMetrics.getStringBounds(title, g)
-            return rect
-        }
-
-        fun createRandomColour(): Int
-        {
-            val rng = Random()
-            lateinit var hexR: String
-            lateinit var hexG: String
-            lateinit var hexB: String
-            return rng.nextInt(15777050 - 11963776 )
-        }
-
-        fun nameSanitizer(text: String): String
-        {
-            var str = text
-            str = str.replace("PoE", "")
-            str = str.replace("POE", "")
-            str = str.replace("poe", "")
-            str = str.replace(",", "")
-            str = str.replace(" ", "")
-            str = str.replace(Regex("([a-z])"), "")
-            str = str.replace("//", "/r/")
-            println("New: $str Old: $text")
-
-            when (true)
-            {
-                str.length <= 3 -> return str;
-                else -> return str.substring(0,3)
-            }
-        }
+    fun onMouseEnter(mouseEvent: MouseEvent)
+    {
+        SideBar.stage.opacity = 1.0
     }
 
 }
