@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.KotlinModule
 import javafx.application.Application
 import javafx.application.Platform
+import javafx.beans.value.ChangeListener
+import javafx.beans.value.ObservableValue
 import javafx.scene.web.WebView
 import javafx.fxml.FXML
 import javafx.fxml.FXMLLoader
@@ -16,11 +18,11 @@ import javafx.scene.layout.AnchorPane
 import javafx.scene.paint.Color
 import javafx.stage.Stage
 import javafx.stage.StageStyle
-import kotlinx.coroutines.experimental.Dispatchers
-import kotlinx.coroutines.experimental.GlobalScope
-import kotlinx.coroutines.experimental.launch
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import java.io.File
-import kotlinx.coroutines.experimental.javafx.JavaFx as Main
+import kotlinx.coroutines.javafx.JavaFx as Main
 import java.net.URL
 import java.util.*
 import javax.imageio.ImageIO
@@ -101,6 +103,7 @@ class WebAddon : Application()
             primaryStage.isAlwaysOnTop = true
             stage = primaryStage
             stage.show()
+            OverlayData.addWindow(Window(stage, data.name))
             visible = true
         }
     }
@@ -127,6 +130,8 @@ fun main(args: Array<String>)
     GlobalScope.launch {
         InputHook.main()
     }
+
+    OverlayData.init()
 
     val url = URL("https://raw.githubusercontent.com/POE-Addon-Launcher/Curated-Repo/master/websites.json")
 

@@ -1,12 +1,11 @@
 package Overlay
 
-import kotlinx.coroutines.experimental.*
+import kotlinx.coroutines.*
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
 import java.awt.Robot
 import java.awt.event.KeyEvent
-import kotlin.coroutines.experimental.buildSequence
 
 /**
  *
@@ -21,8 +20,8 @@ class InputHookTest
         }
     }
 
-    val captureOnDemand = buildSequence {
-         // Start capturing outputs.
+    val captureOnDemand = sequence {
+        // Start capturing outputs.
         var prev = InputHook.keyState
 
         while (true)

@@ -1,8 +1,8 @@
 package Overlay
 
 import Data.PALdata
-import kotlinx.coroutines.experimental.launch
-import kotlinx.coroutines.experimental.runBlocking
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import java.io.File
 
 /**
@@ -12,6 +12,8 @@ class KeyHandler
 {
     companion object
     {
+        var hidden: Boolean = false
+
         fun check(keyState: KeyState, location: String)
         {
             // Load Keybinds
@@ -43,13 +45,21 @@ class KeyHandler
         {
             when (function)
             {
-                "SHOW" -> SHOW()
-                "HIDE" -> HIDE()
+                "SHOW" -> showHideDecider()
+                "HIDE" -> showHideDecider()
                 "OPTIONS" -> OPTIONS()
                 "CLOSE_CURRENT" -> CLOSE_CURRENT()
                 "CLOSE_ALL" -> CLOSE_ALL()
                 else -> customFunction(function)
             }
+        }
+
+        private fun showHideDecider()
+        {
+            if (hidden)
+                SHOW()
+            else
+                HIDE()
         }
 
         private fun customFunction(function: String)
@@ -62,13 +72,13 @@ class KeyHandler
         private fun CLOSE_ALL()
         {
             println("CLOSE_ALL")
-            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            OverlayData.closeAll()
         }
 
         private fun CLOSE_CURRENT()
         {
             println("CLOSE_CURRENT")
-            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            OverlayData.closeCurrentActiveWindow()
         }
 
         private fun OPTIONS()
@@ -79,17 +89,16 @@ class KeyHandler
 
         private fun HIDE()
         {
+            hidden = true
             println("HIDE")
-            if (WebAddon.visible)
-                WebAddon.hideUI()
-            else
-                WebAddon.showUI()
+            OverlayData.hideAll()
         }
 
         private fun SHOW()
         {
+            hidden = false
             println("SHOW")
-            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            OverlayData.showAll()
         }
     }
 }

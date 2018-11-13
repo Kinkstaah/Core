@@ -19,10 +19,10 @@ import javafx.scene.input.MouseEvent
 import javafx.scene.layout.Background
 import javafx.scene.paint.Color
 import javafx.stage.StageStyle
-import kotlinx.coroutines.experimental.Dispatchers
-import kotlinx.coroutines.experimental.GlobalScope
-import kotlinx.coroutines.experimental.delay
-import kotlinx.coroutines.experimental.launch
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import java.awt.*
 import java.awt.geom.Rectangle2D
 import java.awt.image.BufferedImage

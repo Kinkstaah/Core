@@ -6,6 +6,8 @@ import GUI.Tables.InstalledTable;
 import GUI.Tables.InstalledTableRow;
 import IO.CustomAHK;
 import IO.InstalledFilter;
+import Overlay.Launcher;
+import Overlay.WebAddonController;
 import Repo.Repository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.application.Platform;
@@ -145,7 +147,7 @@ public class Controller_Settings implements Initializable
     private Hyperlink hyperlink_AHK_WEBSITE;
 
     @FXML
-    private AnchorPane settings_a_d;
+    private AnchorPane settings_a_overlay;
 
     @FXML
     private AnchorPane settings_a_e;
@@ -309,13 +311,18 @@ public class Controller_Settings implements Initializable
             hideAll();
             settings_a_AHK.setVisible(true);
         }
+        else if (selected.equals("PAL Overlay"))
+        {
+            hideAll();
+            settings_a_overlay.setVisible(true);
+        }
         else
             hideAll();
     }
 
     public void populateListView()
     {
-        ObservableList<String> list = FXCollections.observableArrayList("System Paths", "AutoHotKey", "Launch Options", "Repository", "API", "About");
+        ObservableList<String> list = FXCollections.observableArrayList("System Paths", "AutoHotKey", "Launch Options", "Repository", "API", "About", "PAL Overlay");
         settings_listView.setItems(list);
 
         ObservableList<String> installed_list = FXCollections.observableArrayList();
@@ -366,6 +373,7 @@ public class Controller_Settings implements Initializable
         settings_a_paths.setVisible(false);
         settings_a_launchoptions.setVisible(false);
         settings_a_AHK.setVisible(false);
+        settings_a_overlay.setVisible(false);
     }
 
     public void SaveAndExit()
@@ -787,5 +795,10 @@ public class Controller_Settings implements Initializable
         {
             // Not a PoE Dir.
         }
+    }
+
+    public void LaunchOverlay(ActionEvent actionEvent)
+    {
+        Launcher.Companion.main(null);
     }
 }
