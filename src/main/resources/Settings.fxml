@@ -163,7 +163,7 @@
                   <Text fill="WHITE" layoutX="14.0" layoutY="209.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Path of Exile Locations:" wrappingWidth="292.9999975860119" />
                   <Button fx:id="bAddPoELocation" layoutX="313.0" layoutY="214.0" mnemonicParsing="false" onAction="#AddPoEFolder" text="+" />
                   <Button fx:id="bRemoveSelectedPoEFolder" layoutX="313.0" layoutY="244.0" mnemonicParsing="false" onAction="#RemoveSelectedPoEVersion" prefHeight="25.0" prefWidth="25.0" text="-" />
-                  <Button fx:id="bDoItForMe" visible="false" layoutX="313.0" layoutY="273.0" mnemonicParsing="false" onAction="#FindPoEVersionsOnSystem" prefHeight="25.0" prefWidth="80.0" text="Scan Drives" />
+                  <Button fx:id="bDoItForMe" layoutX="313.0" layoutY="273.0" mnemonicParsing="false" onAction="#FindPoEVersionsOnSystem" prefHeight="25.0" prefWidth="80.0" text="Scan Drives" visible="false" />
                </children></AnchorPane>
             <AnchorPane fx:id="settings_a_launchoptions" prefHeight="400.0" prefWidth="400.0" visible="false">
                <children>
@@ -223,7 +223,46 @@
                   <CheckBox fx:id="box_launch_with_PoE" layoutX="78.0" layoutY="370.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="236.0" selected="true" text="Launch Selected Script with Path of Exile" />
                   <Button fx:id="removeScript" layoutX="44.0" layoutY="366.0" maxHeight="25.0" maxWidth="25.0" minHeight="25.0" minWidth="25.0" mnemonicParsing="false" onAction="#removeAHKscript" prefHeight="25.0" prefWidth="25.0" text="-" />
                </children></AnchorPane>
-            <AnchorPane fx:id="settings_a_d" prefHeight="400.0" prefWidth="400.0" visible="false" />
+            <AnchorPane fx:id="settings_a_overlay" prefHeight="400.0" prefWidth="400.0" visible="false">
+               <children>
+                  <Text fill="WHITE" layoutX="9.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PAL Overlay {BETA}">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                  </Text>
+                  <Text fill="WHITE" layoutX="9.0" layoutY="65.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Opt into the open beta for PAL Overlay!">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Text>
+                  <Text fill="WHITE" layoutX="9.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Current Keybinds (Not Changeable yet)">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Text>
+                  <Text fill="WHITE" layoutX="42.0" layoutY="103.0" strokeType="OUTSIDE" strokeWidth="0.0" text="               = : Show / Hide Windows">
+                     <font>
+                        <Font name="System Italic" size="14.0" />
+                     </font>
+                  </Text>
+                  <Text fill="WHITE" layoutX="42.0" layoutY="122.0" strokeType="OUTSIDE" strokeWidth="0.0" text="            ESC : Close Current Window">
+                     <font>
+                        <Font name="System Italic" size="14.0" />
+                     </font>
+                  </Text>
+                  <Text fill="WHITE" layoutX="42.0" layoutY="141.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Shift + ESC : Close All Windows">
+                     <font>
+                        <Font name="System Italic" size="14.0" />
+                     </font>
+                  </Text>
+                  <Text fill="WHITE" layoutX="42.0" layoutY="160.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Shift + ESC : Close All Windows">
+                     <font>
+                        <Font name="System Italic" size="14.0" />
+                     </font>
+                  </Text>
+                  <Button fx:id="bLaunchOverlay" layoutX="14.0" layoutY="188.0" mnemonicParsing="false" onAction="#LaunchOverlay" text="Launch PAL Overlay" textFill="WHITE" />
+                  <Text fill="WHITE" layoutX="14.0" layoutY="241.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Please, provide feedback on /r/POEAddonLauncher or Github" />
+               </children></AnchorPane>
             <AnchorPane fx:id="settings_a_e" prefHeight="400.0" prefWidth="400.0" visible="false" />
             <AnchorPane fx:id="settings_a_f" prefHeight="400.0" prefWidth="400.0" visible="false" />
             <AnchorPane fx:id="settings_a_about" prefHeight="400.0" prefWidth="400.0" visible="false">

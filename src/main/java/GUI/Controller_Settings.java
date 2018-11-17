@@ -145,7 +145,7 @@ public class Controller_Settings implements Initializable
     private Hyperlink hyperlink_AHK_WEBSITE;
 
     @FXML
-    private AnchorPane settings_a_d;
+    private AnchorPane settings_a_overlay;
 
     @FXML
     private AnchorPane settings_a_e;
@@ -309,13 +309,18 @@ public class Controller_Settings implements Initializable
             hideAll();
             settings_a_AHK.setVisible(true);
         }
+        else if (selected.equals("PAL Overlay"))
+        {
+            hideAll();
+            settings_a_overlay.setVisible(true);
+        }
         else
             hideAll();
     }
 
     public void populateListView()
     {
-        ObservableList<String> list = FXCollections.observableArrayList("System Paths", "AutoHotKey", "Launch Options", "Repository", "API", "About");
+        ObservableList<String> list = FXCollections.observableArrayList("System Paths", "AutoHotKey", "Launch Options", "Repository", "API", "About", "PAL Overlay");
         settings_listView.setItems(list);
 
         ObservableList<String> installed_list = FXCollections.observableArrayList();
@@ -366,6 +371,7 @@ public class Controller_Settings implements Initializable
         settings_a_paths.setVisible(false);
         settings_a_launchoptions.setVisible(false);
         settings_a_AHK.setVisible(false);
+        settings_a_overlay.setVisible(false);
     }
 
     public void SaveAndExit()
@@ -787,5 +793,13 @@ public class Controller_Settings implements Initializable
         {
             // Not a PoE Dir.
         }
+    }
+
+    public void LaunchOverlay(ActionEvent actionEvent)
+    {
+        Runnable r = () -> Platform.runLater(() -> Overlay.LaunchKt.main(new String[0]));
+        Thread launcher_thread = new Thread(r, "Overlay Thread");
+        launcher_thread.setDaemon(true);
+        launcher_thread.start();
     }
 }

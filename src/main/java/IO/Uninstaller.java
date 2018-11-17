@@ -2,8 +2,6 @@ package IO;
 
 import Data.InstalledAddons;
 import Data.UserSettings;
-import GUI.PopUp.PopupFactory;
-import GUI.Tables.InstalledTable;
 import GUI.Tables.InstalledTableRow;
 import Repo.Addons;
 
