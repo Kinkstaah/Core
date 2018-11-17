@@ -87,15 +87,18 @@ class WebAddon : Application()
 
         fun createUI(primaryStage: Stage, data: OverlayAddonData)
         {
+            var webView = WebView()
+            webView.engine.load(data.url)
+
             var primaryStage = primaryStage
             primaryStage = Stage()
-            val fxmlLoader = FXMLLoader()
-            fxmlLoader.setController(WebAddonController(data))
-            val root = fxmlLoader.load<Parent>(WebAddon::class.java.getResource("/Overlay/WebAddonUI.fxml").openStream())
+            //val fxmlLoader = FXMLLoader()
+            //fxmlLoader.setController(WebAddonController(data))
+            //val root = fxmlLoader.load<Parent>(WebAddon::class.java.getResource("/Overlay/WebAddonUI.fxml").openStream())
             primaryStage.title = "PAL: ${data.name}"
             primaryStage.initStyle(StageStyle.UTILITY)
             primaryStage.icons.add(Image(WebAddon::class.java.getResource("/witch.png").toString()))
-            val scene = Scene(root, data.width, data.height)
+            val scene = Scene(webView, data.width, data.height)
             scene.stylesheets.add("layout_settings.css")
             primaryStage.scene = scene
             primaryStage.isAlwaysOnTop = true
