@@ -29,8 +29,6 @@ import javax.imageio.ImageIO
 import javax.imageio.ImageReader
 
 
-
-
 /**
  *
  */
@@ -93,10 +91,10 @@ class WebAddon : Application()
             primaryStage = Stage()
             val fxmlLoader = FXMLLoader()
             fxmlLoader.setController(WebAddonController(data))
-            val root = fxmlLoader.load<Parent>(javaClass.getResource("/overlay/WebAddonUI.fxml").openStream())
+            val root = fxmlLoader.load<Parent>(WebAddon::class.java.getResource("/Overlay/WebAddonUI.fxml").openStream())
             primaryStage.title = "PAL: ${data.name}"
             primaryStage.initStyle(StageStyle.UTILITY)
-            primaryStage.icons.add(Image(javaClass.getResource("/witch.png").toString()))
+            primaryStage.icons.add(Image(WebAddon::class.java.getResource("/witch.png").toString()))
             val scene = Scene(root, data.width, data.height)
             scene.stylesheets.add("layout_settings.css")
             primaryStage.scene = scene
@@ -124,25 +122,3 @@ class WebAddon : Application()
     }
 
 }
-
-fun main(args: Array<String>)
-{
-    GlobalScope.launch {
-        InputHook.main()
-    }
-
-    OverlayData.init()
-
-    val url = URL("https://raw.githubusercontent.com/POE-Addon-Launcher/Curated-Repo/master/websites.json")
-
-    var objectMapper = ObjectMapper()
-            .enable(JsonParser.Feature.ALLOW_UNQUOTED_FIELD_NAMES)
-            .registerModule(KotlinModule())
-    GridDisplay.data = objectMapper.readValue(url, Array<OverlayAddonData>::class.java)
-
-    GridDisplay.data.forEach { GridDisplay.dataMap[it.name] = it }
-
-    //Application.launch(WebAddon::class.java, *args)
-    Application.launch(SideBar::class.java, *args)
-}
-

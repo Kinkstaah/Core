@@ -11,6 +11,11 @@ import java.util.logging.Logger
 /**
  * First attempt at using Kotlin.
  */
+data class KeyState(var shiftHeld: Boolean,
+                    var ctrlHeld: Boolean,
+                    var altHeld: Boolean,
+                    var key: Int)
+
 data class Modifiers(var shiftHeld: Boolean,
                      var ctrlHeld: Boolean,
                      var altHeld: Boolean
@@ -25,11 +30,6 @@ data class Modifiers(var shiftHeld: Boolean,
         return stringBuilder.toString()
     }
 }
-
-data class KeyState(var shiftHeld: Boolean,
-                    var ctrlHeld: Boolean,
-                    var altHeld: Boolean,
-                    var key: Int)
 
 class InputHook
 {
@@ -65,7 +65,6 @@ class InputHook
                     {
                         val keyText = NativeKeyEvent.getKeyText(keyCode)
                         keyState = KeyState(modifiers.shiftHeld, modifiers.ctrlHeld, modifiers.altHeld, keyCode)
-
                         KeyHandler.check(keyState, System.getenv("LOCALAPPDATA") + File.separator + "PAL" + File.separator + "keybinds.pal")
 
                     }

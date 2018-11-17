@@ -6,8 +6,6 @@ import GUI.Tables.InstalledTable;
 import GUI.Tables.InstalledTableRow;
 import IO.CustomAHK;
 import IO.InstalledFilter;
-import Overlay.Launcher;
-import Overlay.WebAddonController;
 import Repo.Repository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.application.Platform;
@@ -799,6 +797,9 @@ public class Controller_Settings implements Initializable
 
     public void LaunchOverlay(ActionEvent actionEvent)
     {
-        Launcher.Companion.main(null);
+        Runnable r = () -> Platform.runLater(() -> Overlay.LaunchKt.main(new String[0]));
+        Thread launcher_thread = new Thread(r, "Overlay Thread");
+        launcher_thread.setDaemon(true);
+        launcher_thread.start();
     }
 }
