@@ -995,7 +995,7 @@ public class Controller_Core implements Initializable
 
     public void shouldPopupShow()
     {
-        File blocker = new File(PALdata.LOCAL_PAL_FOLDER + File.separator + "b17.v");
+        File blocker = new File(PALdata.LOCAL_PAL_FOLDER + File.separator + "b18.v");
         if (!blocker.exists())
         {
             try
