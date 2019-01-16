@@ -195,6 +195,7 @@ public class UserSettings
 
     public static void setGithubApiTokenEnabled(boolean githubApiTokenEnabled)
     {
+        System.out.println("SETTING TO: " + githubApiTokenEnabled);
         GITHUB_API_TOKEN_ENABLED = githubApiTokenEnabled;
     }
 

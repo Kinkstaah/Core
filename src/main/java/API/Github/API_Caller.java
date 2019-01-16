@@ -36,7 +36,22 @@ public class API_Caller
         {
             addon.setVersion(version);
             addon.setSource("Github API");
-            addon.setDownload_url(latest.getAssets().get(0).getBrowserDownloadUrl());
+
+            if (addon.getName().equals("POE-Trades-Companion"))
+            {
+                for (GHAsset a : latest.getAssets())
+                {
+                    if (a.getName().contains(".exe"))
+                    {
+                        addon.setDownload_url(a.getBrowserDownloadUrl());
+                    }
+                }
+            }
+            else
+            {
+                addon.setDownload_url(latest.getAssets().get(0).getBrowserDownloadUrl());
+            }
+
             return true;
         }
         return false;
@@ -44,13 +59,15 @@ public class API_Caller
 
     public static GitHub connect() throws IOException
     {
-        if (UserSettings.isGithubApiTokenEnabled())
+        String token = PALdata.settings.getGithub_token();
+
+        if (token.equals(""))
         {
-            return GitHub.connectUsingOAuth(UserSettings.getGithub_API_Token());
+            return GitHub.connectAnonymously();
         }
         else
         {
-            return GitHub.connectAnonymously();
+            return GitHub.connectUsingOAuth(token);
         }
     }
 

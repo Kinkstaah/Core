@@ -1,5 +1,6 @@
 package IO;
 
+import API.Github.API_Caller;
 import Data.InstalledAddons;
 import Data.UserSettings;
 import GUI.Tables.InstalledTableRow;
@@ -7,6 +8,9 @@ import Repo.AddonJson;
 import net.lingala.zip4j.core.ZipFile;
 import net.lingala.zip4j.exception.ZipException;
 import org.apache.commons.io.FileUtils;
+import org.kohsuke.github.GHAsset;
+import org.kohsuke.github.GHRepository;
+import org.kohsuke.github.GitHub;
 
 import java.io.*;
 import java.net.MalformedURLException;
@@ -16,6 +20,7 @@ import java.nio.file.Paths;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Properties;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
@@ -120,6 +125,8 @@ public class InstallHandler
 
         String[] file_path_parts = file_name.split("\\.");
         String ext = file_path_parts[file_path_parts.length-1];
+
+        System.out.println("NAME: " + addon.getName());
 
         if (addon.getName().equals("CurrencyCop"))
         {
